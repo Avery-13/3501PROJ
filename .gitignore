@@ -1,0 +1,9 @@
+# Godot 4+ specific ignores
+.godot/
+# This is the SCons database file for quick compilation; should probably be local and not pulled
+.sconsign.dblite
+# The binaries should be local, BUT you need to have the .gdextension
+demo/bin/lib*
+demo/bin/~lib*
+
+*.obj
