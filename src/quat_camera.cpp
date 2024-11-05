@@ -63,23 +63,25 @@ void QuatCamera::_input(const Ref<InputEvent> &event)
 
 Vector3 QuatCamera::GetForward() const
 {
-	return -get_global_transform().basis.z;
+	return forward_;
+	
 }
 Vector3 QuatCamera::GetSide() const
 {
-	return get_global_transform().basis.x;
+	return side_;
+	
 }
 
 void QuatCamera::Pitch(float angle)
 {
-	Transform transform = get_global_transform();
-	transform.basis = transform.basis.rotated(transform.basis.x, angle);
-	set_global_transform(transform);
+	//Transform transform = get_global_transform();
+	//transform.basis = transform.basis.rotated(transform.basis.x, angle);
+	//set_global_transform(transform);
 }
 
 void QuatCamera::Yaw(float angle)
 {
-	Transform transform = get_global_transform();
-	transform.basis = transform.basis.rotated(Vector3(0, 1, 0), angle);
-	set_global_transform(transform);
+	//Transform transform = get_global_transform();
+	//transform.basis = transform.basis.rotated(Vector3(0, 1, 0), angle);
+	//set_global_transform(transform);
 }
