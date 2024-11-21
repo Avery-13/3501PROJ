@@ -18,6 +18,7 @@ CustomScene3501::~CustomScene3501()
 
 void CustomScene3501::_enter_tree()
 {
+	UtilityFunctions::print("PLEASEEEEEEEE");
 	if (DEBUG)
 		UtilityFunctions::print("Enter Tree - CustomScene3501.");
 
