@@ -2,6 +2,7 @@
 #define CUSTOM_SCENE_H
 
 #include <godot_cpp/classes/node3d.hpp>
+#include <godot_cpp/classes/window.hpp>
 
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/input.hpp>
@@ -59,6 +60,7 @@ public:
 	void _enter_tree ( ) override;
 	void _ready ( ) override;
 
+	void print_tree(Node* node, int depth = 0);
 
 	// the return type represents whether it existed already; true if it is brand-new; false if it was retrieved from the SceneTree
 	// search defines whether the scenetree should be checked for an instance

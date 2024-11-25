@@ -18,11 +18,42 @@ CustomScene3501::~CustomScene3501()
 
 void CustomScene3501::_enter_tree()
 {
-	UtilityFunctions::print("PLEASEEEEEEEE");
+
 	if (DEBUG)
 		UtilityFunctions::print("Enter Tree - CustomScene3501.");
 
-	create_and_add_as_child<QuatCamera>(main_camera, "QuatCamera", true);
+    // Traverse up the tree to find the parent (World)
+    Node* world_node = get_parent();
+	while (world_node && world_node->get_name() != godot::String("World")) {
+		world_node = world_node->get_parent();
+	}
+
+    if (!world_node) {
+        UtilityFunctions::print("World node not found.");
+        return;
+    }
+
+    // Use find_child to locate the Head node
+    Node* head_node = world_node->find_child("Head", true, false); // Recursively search for "Head"
+    if (!head_node) {
+        UtilityFunctions::print("Head node not found under World.");
+        return;
+    }
+
+    // Add QuatCamera as a child of Head
+    Node3D* head_node_3d = Object::cast_to<Node3D>(head_node);
+    if (!head_node_3d) {
+        UtilityFunctions::print("Head node is not of type Node3D.");
+        return;
+    }
+
+	main_camera = memnew(QuatCamera);
+	main_camera -> set_name("QuatCamera");
+    head_node_3d->add_child(main_camera);
+    main_camera->set_owner(get_tree()->get_edited_scene_root());
+
+    UtilityFunctions::print("QuatCamera successfully added to Head node.");
+
 
 	// The vectors are brand new every time you run the simulation or reload the project.
 }
@@ -47,6 +78,25 @@ void CustomScene3501::_process(double delta)
 		return; // Early return if we are in editor
 
 	time_passed += delta;
+}
+
+
+void CustomScene3501::print_tree(Node* node, int depth) {
+    if (!node) return;
+
+    // Create indentation
+    godot::String indentation = "";
+    for (int i = 0; i < depth * 4; i++) {
+        indentation += " ";
+    }
+
+    UtilityFunctions::print(indentation + node->get_name());
+
+    Array children = node->get_children();
+    for (int i = 0; i < children.size(); i++) {
+        Node* child = Object::cast_to<Node>(children[i]);
+        print_tree(child, depth + 1); // Recursive call
+    }
 }
 
 // this is just so that you have references when you are coding the camera movement.
