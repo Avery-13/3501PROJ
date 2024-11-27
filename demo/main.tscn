@@ -68,26 +68,7 @@ shape = SubResource("ConvexPolygonShape3D_kmnic")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.701756, 0)
 
 [node name="QuatCamera" type="QuatCamera" parent="Player/Head"]
-transform = Transform3D(0.980581, -0.0377426, 0.19245, 0, 0.981307, 0.19245, -0.196116, -0.188713, 0.96225, 0, 1.8, 0)
-
-[node name="@QuatCamera@17473" type="QuatCamera" parent="Player/Head"]
 transform = Transform3D(0.980581, -0.0377426, 0.19245, 0, 0.981307, 0.19245, -0.196116, -0.188713, 0.96225, 5, 0.613984, 25)
-
-[node name="@QuatCamera@30876" type="QuatCamera" parent="Player/Head"]
-
-[node name="@QuatCamera@31919" type="QuatCamera" parent="Player/Head"]
-transform = Transform3D(0.980581, -0.0377426, 0.19245, 0, 0.981307, 0.19245, -0.196116, -0.188713, 0.96225, 5, 0.613984, 25)
-
-[node name="@QuatCamera@32732" type="QuatCamera" parent="Player/Head"]
-transform = Transform3D(0.980581, -0.0377426, 0.19245, 0, 0.981307, 0.19245, -0.196116, -0.188713, 0.96225, 5, 0.613984, 25)
-
-[node name="@QuatCamera@38666" type="QuatCamera" parent="Player/Head"]
-transform = Transform3D(0.980581, -0.0377426, 0.19245, 0, 0.981307, 0.19245, -0.196116, -0.188713, 0.96225, 5, 0.613984, 25)
-
-[node name="@QuatCamera@40249" type="QuatCamera" parent="Player/Head"]
-transform = Transform3D(0.980581, -0.0377426, 0.19245, 0, 0.981307, 0.19245, -0.196116, -0.188713, 0.96225, 5, 0.613984, 25)
-
-[node name="@QuatCamera@46030" type="QuatCamera" parent="Player/Head"]
 
 [node name="GraveYard" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.4291, 0, -9.44187)
@@ -295,11 +276,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6465, 0, 45.5154)
 
 [node name="brick-wall13" parent="Walls/Wall4" instance=ExtResource("7_k255q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.9162, 0, 45.5154)
-
-[node name="CustomScene3501" type="CustomScene3501" parent="."]
-
-[node name="QuatCamera" type="QuatCamera" parent="CustomScene3501"]
-transform = Transform3D(0.980581, -0.0377426, 0.19245, 0, 0.981307, 0.19245, -0.196116, -0.188713, 0.96225, 0, 1.8, 0)
 
 [node name="Forest" type="Node3D" parent="."]
 
@@ -635,3 +611,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.0499, 0, 70.4951)
 
 [node name="pine-crooked23" parent="Forest4" instance=ExtResource("8_nk1lp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.8218, 0, 60.6863)
+
+[node name="CustomScene3501" type="CustomScene3501" parent="."]

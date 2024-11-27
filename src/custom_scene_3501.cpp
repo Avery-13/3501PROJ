@@ -6,7 +6,7 @@ using namespace godot;
 
 void CustomScene3501::_bind_methods() {}
 
-CustomScene3501::CustomScene3501() : Node3D()
+CustomScene3501::CustomScene3501() : Node3D(), main_camera(nullptr)
 {
 	time_passed = 0.0;
 }
@@ -46,6 +46,15 @@ void CustomScene3501::_enter_tree()
         UtilityFunctions::print("Head node is not of type Node3D.");
         return;
     }
+
+	Node* existing_camera = head_node_3d->find_child("QuatCamera", false, false);
+	if (existing_camera)
+	{
+		main_camera = Object::cast_to<QuatCamera>(existing_camera);
+		UtilityFunctions::print("QuatCamera already exists and is assigned to main_camera.");
+		return;
+	}
+
 
 	main_camera = memnew(QuatCamera);
 	main_camera -> set_name("QuatCamera");
