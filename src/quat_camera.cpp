@@ -2,6 +2,7 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/input.hpp>
+#include <godot_cpp/classes/input_event.hpp>
 #include <godot_cpp/classes/input_event_mouse_motion.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
@@ -16,6 +17,12 @@ QuatCamera::~QuatCamera() {}
 void QuatCamera::_ready()
 {
     UtilityFunctions::print("QuatCamera ready.");
+
+    // Hide the mouse cursor and capture its movement
+    if (!Engine::get_singleton()->is_editor_hint())
+    {
+        Input::get_singleton()->set_mouse_mode(Input::MOUSE_MODE_CAPTURED);
+    }
 
     // Locate the World node
     Node *current = get_parent();
@@ -82,6 +89,9 @@ void QuatCamera::_physics_process(double delta)
 
 void QuatCamera::_input(const Ref<InputEvent> &event)
 {
+    if (Engine::get_singleton()->is_editor_hint())
+        return;  
+
     if (!head_node)
         return;
 
@@ -98,6 +108,22 @@ void QuatCamera::_input(const Ref<InputEvent> &event)
         pitch_angle += pitch;
         pitch_angle = Math::clamp(pitch_angle, Math::deg_to_rad(min_pitch), Math::deg_to_rad(max_pitch));
         set_rotation(Vector3(pitch_angle, get_rotation().y, get_rotation().z));
+    }
+
+    // Toggle mouse mode with Escape key
+    if (Input::get_singleton()->is_action_just_pressed("ui_cancel"))
+    {
+        Input *input = Input::get_singleton();
+        if (input->get_mouse_mode() == Input::MOUSE_MODE_CAPTURED)
+        {
+            input->set_mouse_mode(Input::MOUSE_MODE_VISIBLE);
+            UtilityFunctions::print("Mouse released.");
+        }
+        else
+        {
+            input->set_mouse_mode(Input::MOUSE_MODE_CAPTURED);
+            UtilityFunctions::print("Mouse captured.");
+        }
     }
 }
 
