@@ -53,6 +53,7 @@ void CustomScene3501::_enter_tree()
     main_camera->set_owner(get_tree()->get_edited_scene_root());
 
     UtilityFunctions::print("QuatCamera successfully added to Head node.");
+	UtilityFunctions::print("Printing a statement to test for DANE.");
 
 
 	// The vectors are brand new every time you run the simulation or reload the project.
