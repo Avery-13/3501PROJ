@@ -17,10 +17,9 @@ namespace godot
 	private:
 		// Movement-related
 		Vector3 velocity;
-		float speed = 1.0f;
-		static constexpr float WALK_SPEED = 7.0f;
-		static constexpr float SPRINT_SPEED = 10.0f;
-		static constexpr float JUMP_VELOCITY = 8.0f;
+		static constexpr float WALK_SPEED = 3.0f;
+		static constexpr float SPRINT_SPEED = 5.0f;
+		static constexpr float JUMP_VELOCITY = 4.0f;
 
 		// Gravity
 		float gravity = 9.8f;

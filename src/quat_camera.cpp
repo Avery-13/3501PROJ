@@ -170,8 +170,8 @@ void QuatCamera::handle_movement(float delta)
     if (input_dir != Vector3())
     {
         input_dir = input_dir.normalized();
-        velocity.x = input_dir.x * speed;
-        velocity.z = input_dir.z * speed;
+        velocity.x = input_dir.x * WALK_SPEED;
+        velocity.z = input_dir.z * WALK_SPEED;
     }
     else
     {
