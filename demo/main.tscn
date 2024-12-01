@@ -614,3 +614,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.0499, 0, 70.4951)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.8218, 0, 60.6863)
 
 [node name="CustomScene3501" type="CustomScene3501" parent="."]
+
+[node name="UI" type="GridContainer" parent="."]
+offset_left = 1043.0
+offset_top = 11.0
+offset_right = 1144.0
+offset_bottom = 155.0
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 2
+text = "Item 1: ❌"
+
+[node name="Label2" type="Label" parent="UI"]
+layout_mode = 2
+text = "Item 2: ❌"
+
+[node name="Label3" type="Label" parent="UI"]
+layout_mode = 2
+text = "Item 3: ❌"
+
+[node name="Label4" type="Label" parent="UI"]
+layout_mode = 2
+text = "Item 4: ❌"
+
+[node name="Label5" type="Label" parent="UI"]
+layout_mode = 2
+text = "Item 5: ❌"
