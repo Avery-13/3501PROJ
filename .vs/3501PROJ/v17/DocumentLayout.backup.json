@@ -37,8 +37,7 @@
               "RelativeToolTip": "src\\quat_camera.cpp",
               "ViewState": "AgIAAC0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-27T20:23:56.565Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T20:23:56.565Z"
             },
             {
               "$type": "Document",
@@ -48,7 +47,7 @@
               "RelativeDocumentMoniker": "src\\custom_scene_3501.cpp",
               "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\custom_scene_3501.cpp",
               "RelativeToolTip": "src\\custom_scene_3501.cpp",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAADcAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-27T20:23:34.41Z",
               "EditorCaption": ""
@@ -63,8 +62,7 @@
               "RelativeToolTip": "src\\custom_scene_3501.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-27T20:07:09.195Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T20:07:09.195Z"
             },
             {
               "$type": "Document",
@@ -73,8 +71,7 @@
               "DocumentMoniker": "CMake Overview Pages",
               "ToolTip": "CMake Overview Pages",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-11-27T20:06:22.349Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T20:06:22.349Z"
             }
           ]
         }

@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\demo",
+    "\\demo\\assets",
     "\\src"
   ],
+  "SelectedNode": "\\src\\register_types.cpp",
   "PreviewInSolutionExplorer": false
 }

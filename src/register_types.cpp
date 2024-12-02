@@ -7,6 +7,9 @@
 #include "example_abstract_class.h"
 #include "example_derived_class.h"
 
+#include "terrain.h"
+#include "terrain_instance.h"
+
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
@@ -23,6 +26,8 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<CustomScene3501>();
 	ClassDB::register_abstract_class<ExampleAbstractClass>();
 	ClassDB::register_class<ExampleDerivedClass>();
+	ClassDB::register_class<TerrainMesh>();
+	ClassDB::register_class<TerrainInstance>();
 }
 
 // gets called when godot unloads our plugin
