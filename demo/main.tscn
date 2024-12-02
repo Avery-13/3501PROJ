@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://bp1hkrg2i3h82"]
+[gd_scene load_steps=17 format=3 uid="uid://bp1hkrg2i3h82"]
 
 [ext_resource type="Texture2D" uid="uid://detlsoe0vwo06" path="res://assets/textures/dirt.jpg" id="1_4c2mg"]
+[ext_resource type="PackedScene" uid="uid://dwmyust2bkuqs" path="res://scenes/player/arm.tscn" id="2_1p681"]
 [ext_resource type="PackedScene" uid="uid://60i36mwy12t0" path="res://scenes/environments/Graveyard/gravestone_bevel_2.tscn" id="3_ux5bt"]
 [ext_resource type="PackedScene" uid="uid://7lw528a0a4dv" path="res://scenes/environments/Graveyard/gravestone_cross_large_2.tscn" id="4_anyx6"]
 [ext_resource type="PackedScene" uid="uid://bcw5eohqiwsea" path="res://scenes/environments/Graveyard/gravestone_round_2.tscn" id="5_ekxc2"]
@@ -70,6 +71,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.701756, 0)
 
 [node name="QuatCamera" type="QuatCamera" parent="Player/Head"]
 transform = Transform3D(0.980581, -0.0377426, 0.19245, 0, 0.981307, 0.19245, -0.196116, -0.188713, 0.96225, 5, 0.613984, 25)
+
+[node name="new_arm" parent="Player/Head" instance=ExtResource("2_1p681")]
+transform = Transform3D(0.0632753, 0.030952, -0.187185, 0.0494939, 0.187795, 0.0477836, 0.183157, -0.0614402, 0.0517544, 0.436417, -0.675279, -1.13838)
 
 [node name="GraveYard" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.4291, 0, -9.44187)
