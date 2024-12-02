@@ -52,9 +52,36 @@ void CustomScene3501::_enter_tree()
 	{
 		main_camera = Object::cast_to<QuatCamera>(existing_camera);
 		UtilityFunctions::print("QuatCamera already exists and is assigned to main_camera.");
+		Node* existing_screen_effect = main_camera->find_child("Vision", false, false);
+		if (existing_screen_effect)
+		{
+			screen_quad_instance = Object::cast_to<MeshInstance3D>(existing_screen_effect);
+			UtilityFunctions::print("Screen effect already exists and is assigned to main_camera.");
+			
+		}
+		else {
+			screen_quad_instance = memnew(MeshInstance3D);
+			screen_quad_instance->set_name("Vision");
+			main_camera->add_child(screen_quad_instance);
+			screen_quad_instance->set_owner(get_tree()->get_edited_scene_root());
+			// Setup the screen-space shader
+			QuadMesh* quad_mesh = memnew(QuadMesh);
+			quad_mesh->set_size(Vector2(2, 2)); // this will cover the whole screen
+			quad_mesh->set_flip_faces(true);
+
+			screen_space_shader_material = memnew(ShaderMaterial);
+			// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
+			Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/custom.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
+			screen_space_shader_material->set_shader(shader);
+			quad_mesh->surface_set_material(0, screen_space_shader_material);
+			screen_quad_instance->set_mesh(quad_mesh);
+			screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
+
+		}
+		
 		return;
 	}
-
+	
 
 	main_camera = memnew(QuatCamera);
 	main_camera -> set_name("QuatCamera");
@@ -63,6 +90,24 @@ void CustomScene3501::_enter_tree()
 
     UtilityFunctions::print("QuatCamera successfully added to Head node.");
 
+	screen_quad_instance = memnew(MeshInstance3D);
+	screen_quad_instance->set_name("Vision");
+	main_camera->add_child(screen_quad_instance);
+	screen_quad_instance->set_owner(get_tree()->get_edited_scene_root());
+	// Setup the screen-space shader
+	QuadMesh* quad_mesh = memnew(QuadMesh);
+	quad_mesh->set_size(Vector2(2, 2)); // this will cover the whole screen
+	quad_mesh->set_flip_faces(true);
+	
+	screen_space_shader_material = memnew(ShaderMaterial);
+	// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
+	Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/custom.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
+	screen_space_shader_material->set_shader(shader);
+	quad_mesh->surface_set_material(0, screen_space_shader_material);
+	screen_quad_instance->set_mesh(quad_mesh);
+	screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
+
+	//create_and_add_as_child<TerrainInstance>(sands, "Test terrain", false);
 
 	// The vectors are brand new every time you run the simulation or reload the project.
 }
@@ -75,7 +120,7 @@ void CustomScene3501::_ready()
 	// set the player's position (the camera)
 	main_camera->set_global_position(Vector3(5.0, 5.0, 25.0f));
 	main_camera->look_at(Vector3(0, 0, 0)); // there are some bugs with this function if the up vector is parallel to the look-at position; check the manual for a link to more info
-
+	//sands->set_global_position(Vector3(50.0, 0.0, 0.0));
 	// now that we have set the camera's starting state, let's reinitialize its variables
 	main_camera->_ready();
 }

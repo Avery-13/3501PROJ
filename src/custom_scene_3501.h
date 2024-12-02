@@ -26,11 +26,11 @@
 #include <godot_cpp/classes/canvas_item.hpp> // for viewport size
 #include <godot_cpp/classes/control.hpp> // for the anchors preset
 #include <godot_cpp/classes/color_rect.hpp>
+#include <godot_cpp/classes/quad_mesh.hpp>
 
 #include "defs.h"
 #include "quat_camera.h"
 #include "example_derived_class.h"
-
 
 // everything in gdextension is defined in this namespace
 namespace godot {
@@ -43,7 +43,9 @@ private:
 
 	QuatCamera* main_camera;
 	Vector<ExampleDerivedClass*> reference_instances;
-
+	//TerrainInstance* sands;
+	MeshInstance3D* screen_quad_instance;
+	ShaderMaterial* screen_space_shader_material;
 	// create and setup the boxes; for this one they don't need to have separate create and setup functions. 
 	// This shouldn't be called in the assignment that you hand in. You can choose to delete the code if you want to. 
 	void setup_reference_boxes();

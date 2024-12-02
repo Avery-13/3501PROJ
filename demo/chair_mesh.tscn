@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://creeqvouxo3wn"]
+
+[ext_resource type="ArrayMesh" uid="uid://cck5h4musu2n2" path="res://assets/models/Ship parts/Sketchfab_Scene_defaultMaterial11.res" id="1_8fg3k"]
+[ext_resource type="ArrayMesh" uid="uid://b5e1b4obut75g" path="res://assets/models/Ship parts/Sketchfab_Scene_defaultMaterial19.res" id="2_5bv0c"]
+[ext_resource type="ArrayMesh" uid="uid://582sbwi8q0go" path="res://assets/models/Ship parts/Sketchfab_Scene_defaultMaterial.res" id="3_qbtdk"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 73.3435, 103.905, -11.718)
+mesh = ExtResource("1_8fg3k")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 73.3704, 135.53, 18.7412)
+mesh = ExtResource("2_5bv0c")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="."]
+transform = Transform3D(-24.9999, 0.0536666, 0, -0.0536666, -24.9999, 0, 0, 0, 25, 74.4353, 114.674, 30.4999)
+mesh = ExtResource("3_qbtdk")

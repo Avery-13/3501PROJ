@@ -3,8 +3,8 @@
     "",
     "\\demo",
     "\\demo\\assets",
-    "\\src"
+    "\\demo\\assets\\shaders"
   ],
-  "SelectedNode": "\\src\\register_types.cpp",
+  "SelectedNode": "\\demo\\assets\\shaders\\test.gdshader",
   "PreviewInSolutionExplorer": false
 }
