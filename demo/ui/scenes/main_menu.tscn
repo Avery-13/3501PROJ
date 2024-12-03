@@ -1,0 +1,86 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdo5ot2og1h1c"]
+
+[ext_resource type="Texture2D" uid="uid://b5m1b7j6suak" path="res://assets/textures/Main_Menu/main_menu_bg.jpg" id="1_mc2w3"]
+[ext_resource type="Script" path="res://ui/scenes/main_menu.gd" id="1_ti820"]
+[ext_resource type="FontFile" uid="uid://ce1a8cm4ghcmh" path="res://assets/textures/Main_Menu/Horror.ttf" id="2_2cxcm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_maduk"]
+texture = ExtResource("1_mc2w3")
+modulate_color = Color(0.593134, 0.593134, 0.593134, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5cxm"]
+bg_color = Color(1, 1, 1, 0)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.239216)
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jyo4t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c6e1q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c47c3"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ti820")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_maduk")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.0
+offset_top = -34.0
+offset_right = 111.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.823529, 0.164706, 0.321569, 1)
+theme_override_colors/font_hover_color = Color(0.8244, 0.165935, 0.322589, 1)
+theme_override_fonts/font = ExtResource("2_2cxcm")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_h5cxm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jyo4t")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_c6e1q")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_c47c3")
+text = "Start"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -357.0
+offset_top = 78.0
+offset_right = 357.0
+offset_bottom = 166.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("2_2cxcm")
+theme_override_font_sizes/font_size = 64
+text = "DESOLATE SPACE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_start_pressed"]
