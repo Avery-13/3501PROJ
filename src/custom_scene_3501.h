@@ -27,11 +27,15 @@
 #include <godot_cpp/classes/control.hpp> // for the anchors preset
 #include <godot_cpp/classes/color_rect.hpp>
 #include <godot_cpp/classes/quad_mesh.hpp>
+#include <godot_cpp/classes/array_mesh.hpp>
+
+#include <godot_cpp/classes/grid_container.hpp>
+#include <godot_cpp/classes/label.hpp>
 
 #include "defs.h"
 #include "quat_camera.h"
 #include "example_derived_class.h"
-
+#include "beacon_object.h"
 // everything in gdextension is defined in this namespace
 namespace godot {
 class CustomScene3501 : public Node3D {
@@ -42,13 +46,20 @@ private:
 	double time_passed;
 
 	QuatCamera* main_camera;
+	GridContainer* main_ui;
 	Vector<ExampleDerivedClass*> reference_instances;
+	Vector<BeaconObject*> collectibles;
 	//TerrainInstance* sands;
 	MeshInstance3D* screen_quad_instance;
 	ShaderMaterial* screen_space_shader_material;
 	// create and setup the boxes; for this one they don't need to have separate create and setup functions. 
 	// This shouldn't be called in the assignment that you hand in. You can choose to delete the code if you want to. 
 	void setup_reference_boxes();
+	void set_object_positions();
+
+
+	int numObjs = 5;
+	int collectCount;
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes

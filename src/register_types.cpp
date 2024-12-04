@@ -9,6 +9,8 @@
 
 #include "terrain.h"
 #include "terrain_instance.h"
+#include "game_object.h"
+#include "beacon_object.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -28,6 +30,8 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<ExampleDerivedClass>();
 	ClassDB::register_class<TerrainMesh>();
 	ClassDB::register_class<TerrainInstance>();
+	ClassDB::register_abstract_class<GameObject>();
+	ClassDB::register_class<BeaconObject>();
 }
 
 // gets called when godot unloads our plugin

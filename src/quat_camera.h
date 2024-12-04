@@ -17,7 +17,7 @@ namespace godot
 	private:
 		// Movement-related
 		Vector3 velocity;
-		static constexpr float WALK_SPEED = 3.0f;
+		static constexpr float WALK_SPEED = 5.0f;
 		static constexpr float SPRINT_SPEED = 5.0f;
 		static constexpr float JUMP_VELOCITY = 4.0f;
 
@@ -54,6 +54,8 @@ namespace godot
 		void _process(double delta) override;
 		void _physics_process(double delta) override;
 		void _input(const Ref<InputEvent> &event) override;
+
+		CharacterBody3D* get_player() { return player_body; }
 	};
 }
 

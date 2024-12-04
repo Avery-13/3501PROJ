@@ -9,6 +9,7 @@ void CustomScene3501::_bind_methods() {}
 CustomScene3501::CustomScene3501() : Node3D(), main_camera(nullptr)
 {
 	time_passed = 0.0;
+	collectCount = 0;
 }
 
 CustomScene3501::~CustomScene3501()
@@ -21,7 +22,7 @@ void CustomScene3501::_enter_tree()
 
 	if (DEBUG)
 		UtilityFunctions::print("Enter Tree - CustomScene3501.");
-
+	setup_reference_boxes();
     // Traverse up the tree to find the parent (World)
     Node* world_node = get_parent();
 	while (world_node && world_node->get_name() != godot::String("World")) {
@@ -46,6 +47,14 @@ void CustomScene3501::_enter_tree()
         UtilityFunctions::print("Head node is not of type Node3D.");
         return;
     }
+	
+	// Use find_child to locate the UI node
+	Node* ui_node = world_node->find_child("UI", true, false); // Recursively search for "Head"
+	if (ui_node) {
+		UtilityFunctions::print("UI found under World.");
+		main_ui = Object::cast_to<GridContainer>(ui_node);
+	}
+
 
 	Node* existing_camera = head_node_3d->find_child("QuatCamera", false, false);
 	if (existing_camera)
@@ -71,7 +80,7 @@ void CustomScene3501::_enter_tree()
 
 			screen_space_shader_material = memnew(ShaderMaterial);
 			// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
-			Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/custom.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
+			Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/test.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
 			screen_space_shader_material->set_shader(shader);
 			quad_mesh->surface_set_material(0, screen_space_shader_material);
 			screen_quad_instance->set_mesh(quad_mesh);
@@ -101,7 +110,7 @@ void CustomScene3501::_enter_tree()
 	
 	screen_space_shader_material = memnew(ShaderMaterial);
 	// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
-	Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/custom.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
+	Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/test.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
 	screen_space_shader_material->set_shader(shader);
 	quad_mesh->surface_set_material(0, screen_space_shader_material);
 	screen_quad_instance->set_mesh(quad_mesh);
@@ -120,7 +129,7 @@ void CustomScene3501::_ready()
 	// set the player's position (the camera)
 	main_camera->set_global_position(Vector3(5.0, 5.0, 25.0f));
 	main_camera->look_at(Vector3(0, 0, 0)); // there are some bugs with this function if the up vector is parallel to the look-at position; check the manual for a link to more info
-	//sands->set_global_position(Vector3(50.0, 0.0, 0.0));
+	set_object_positions();
 	// now that we have set the camera's starting state, let's reinitialize its variables
 	main_camera->_ready();
 }
@@ -130,7 +139,31 @@ void CustomScene3501::_process(double delta)
 {
 	if (Engine::get_singleton()->is_editor_hint())
 		return; // Early return if we are in editor
-
+	if (!collectibles.is_empty()) {
+		for (int i = 0; i < numObjs; i++) {
+			BeaconObject* check = collectibles[i];
+			if (check->check_collisions(main_camera->get_player()->get_position())) {
+				if (i == 0) {
+					Node* label = main_ui->find_child("Label", false, false);
+					Label* l1 = Object::cast_to<Label>(label);
+					l1->set_text("Item 1: FOUND");
+				}
+				UtilityFunctions::print("HIT");
+				numObjs -= 1;
+				collectibles.remove_at(i);
+				check->queue_free();
+				collectCount += 1;
+			}
+		}
+	}
+	else {
+		UtilityFunctions::print("DONE");
+	}
+	
+	if (collectCount >= 5) {
+		UtilityFunctions::print("All have been collected, ending now");
+		get_tree()->quit();
+	}
 	time_passed += delta;
 }
 
@@ -154,7 +187,7 @@ void CustomScene3501::print_tree(Node* node, int depth) {
 }
 
 // this is just so that you have references when you are coding the camera movement.
-// REMOVE THIS WHEN YOU GO TO MAKE THE RACETRACK
+// REMOVE THIS WHEN YOU GO TO MAKE THE collectibles
 
 template <class T>
 // returns true if pointer is brand-new; false if retrieved from SceneTree
@@ -189,9 +222,58 @@ bool CustomScene3501::create_and_add_as_child(T *&pointer, String name, bool sea
 	}
 }
 
+
+
+// This function is repurposed from the setup_references() function, now it creates our checkpoints  DB 
+void CustomScene3501::setup_reference_boxes() {
+	
+	for (int index = 0; index < numObjs; index++) {
+		BeaconObject* obj_instance;
+
+		create_and_add_as_child(obj_instance, (vformat("Check_point_%d", index)), true); // Create the beacon as a node and add it to the scene tree  DB
+
+		if (index == 0) { // Set the mesh of the first checkpoint as special to signify it as the first beacon that must be collected  DB
+			Ref<ArrayMesh> collectMesh = ResourceLoader::get_singleton()->load("res://assets/models/ship/Sketchfab_Scene_defaultMaterial20.res", "ArrayMesh");
+			
+			//StandardMaterial3D* box_material1 = memnew(StandardMaterial3D);
+			//box_material1->set_albedo(Color(1.0f, 1.0f, 0.0f, 1.0f));
+			//box1->surface_set_material(0, box_material1);
+			obj_instance->set_mesh(collectMesh);
+		}
+		else { // Set all other beacon meshes to be normal  DB
+			BoxMesh* box = memnew(BoxMesh);
+			box->set_size(Vector3(1.0f, 2.0f, 1.0f));
+			StandardMaterial3D* box_material = memnew(StandardMaterial3D);
+			box_material->set_albedo(Color(1.0f, 1.0f, 1.0f, 1.0f));
+			box->surface_set_material(0, box_material);
+			obj_instance->set_mesh(box);
+		}
+		collectibles.push_back(obj_instance);  // Add each beacon to the collectibles collection  DB
+	}
+}
+
+
+// Set all the object positions
+void CustomScene3501::set_object_positions()
+{
+	RandomNumberGenerator* rng = memnew(RandomNumberGenerator); //added to allow for randomized positions
+
+	for (int i = 0; i < numObjs; i++) // Set all the checkpoint positions
+	{
+		// x and y values are randomized, but to make this similar to a real collectibles the z value is consistently moving further and further back  DB
+		// ergo, the last checkpoint will be at the opposite end of the track as the first   DB
+		float x = rng->randf_range(0.0f, 200.0f);
+		float y = rng->randf_range(0.0f, 3.0f);
+		float z = rng->randf_range(0.0f, 200.0f);
+		collectibles.get(i)->set_global_position(Vector3(x, y, z));
+		//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
+	}
+
+}
+
 /*
  *
- * The usual container class added to the demos. This one should be used to create a racetrack.
+ * The usual container class added to the demos. This one should be used to create a collectibles.
  *
  * Copyright (c) 2024 Samantha Beilman (samanthabeilman@cmail.carleton.ca)
  *
