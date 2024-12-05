@@ -24,6 +24,11 @@ void CustomScene3501::_enter_tree()
 	if (DEBUG)
 		UtilityFunctions::print("Enter Tree - CustomScene3501.");
 	setup_reference_boxes();
+
+	// Add the Firefly Swarm particle system
+    create_particle_system("Firefly Swarm", "firefly");
+
+
     // Traverse up the tree to find the parent (World)
     Node* world_node = get_parent();
 	while (world_node && world_node->get_name() != godot::String("World")) {
@@ -89,37 +94,42 @@ void CustomScene3501::_enter_tree()
 
 		}
 		
-		return;
+	}else{
+
+		main_camera = memnew(QuatCamera);
+		main_camera -> set_name("QuatCamera");
+		head_node_3d->add_child(main_camera);
+		main_camera->set_owner(get_tree()->get_edited_scene_root());
+
+		UtilityFunctions::print("QuatCamera successfully added to Head node.");
+
+		screen_quad_instance = memnew(MeshInstance3D);
+		screen_quad_instance->set_name("Vision");
+		main_camera->add_child(screen_quad_instance);
+		screen_quad_instance->set_owner(get_tree()->get_edited_scene_root());
+		// Setup the screen-space shader
+		QuadMesh* quad_mesh = memnew(QuadMesh);
+		quad_mesh->set_size(Vector2(2, 2)); // this will cover the whole screen
+		quad_mesh->set_flip_faces(true);
+		
+		screen_space_shader_material = memnew(ShaderMaterial);
+		// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
+		Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/test.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
+		screen_space_shader_material->set_shader(shader);
+		quad_mesh->surface_set_material(0, screen_space_shader_material);
+		screen_quad_instance->set_mesh(quad_mesh);
+		screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
 	}
-	
 
-	main_camera = memnew(QuatCamera);
-	main_camera -> set_name("QuatCamera");
-    head_node_3d->add_child(main_camera);
-    main_camera->set_owner(get_tree()->get_edited_scene_root());
 
-    UtilityFunctions::print("QuatCamera successfully added to Head node.");
 
-	screen_quad_instance = memnew(MeshInstance3D);
-	screen_quad_instance->set_name("Vision");
-	main_camera->add_child(screen_quad_instance);
-	screen_quad_instance->set_owner(get_tree()->get_edited_scene_root());
-	// Setup the screen-space shader
-	QuadMesh* quad_mesh = memnew(QuadMesh);
-	quad_mesh->set_size(Vector2(2, 2)); // this will cover the whole screen
-	quad_mesh->set_flip_faces(true);
-	
-	screen_space_shader_material = memnew(ShaderMaterial);
-	// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
-	Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/test.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
-	screen_space_shader_material->set_shader(shader);
-	quad_mesh->surface_set_material(0, screen_space_shader_material);
-	screen_quad_instance->set_mesh(quad_mesh);
-	screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
 
 	//create_and_add_as_child<TerrainInstance>(sands, "Test terrain", false);
 
 	// The vectors are brand new every time you run the simulation or reload the project.
+
+
+
 
 
 }
@@ -136,8 +146,6 @@ void CustomScene3501::_ready()
 	// now that we have set the camera's starting state, let's reinitialize its variables
 	main_camera->_ready();
 
-	// Add the Firefly Swarm particle system
-    create_particle_system("Firefly Swarm", "firefly");
 
 	UtilityFunctions::print(particle_systems.size());
 	//particle set up
@@ -157,7 +165,6 @@ void CustomScene3501::_ready()
 			// if you need anything to be different, do it here!
 			case 0: 
 				// Setup for Firefly Swarm
-				UtilityFunctions::print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
 				num_particles = 50;
 				particle_system->set_amount(num_particles);
 				particle_system->set_lifetime(10.0);
