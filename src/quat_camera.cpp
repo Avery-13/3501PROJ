@@ -170,8 +170,12 @@ void QuatCamera::handle_movement(float delta)
     if (input_dir != Vector3())
     {
         input_dir = input_dir.normalized();
-        velocity.x = input_dir.x * WALK_SPEED;
-        velocity.z = input_dir.z * WALK_SPEED;
+
+        // Check if sprinting
+        float current_speed = Input::get_singleton()->is_action_pressed("sprint") ? SPRINT_SPEED : WALK_SPEED;
+
+        velocity.x = input_dir.x * current_speed;
+        velocity.z = input_dir.z * current_speed;
     }
     else
     {
