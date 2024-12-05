@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://chx4o6tvkgsiv"]
+
+[ext_resource type="Texture2D" uid="uid://cre6gmeui8yy6" path="res://assets/textures/Main_Menu/Victory_bg.jpg" id="1_oumbl"]
+[ext_resource type="FontFile" uid="uid://ce1a8cm4ghcmh" path="res://assets/textures/Main_Menu/Horror.ttf" id="2_i3py5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k45f4"]
+texture = ExtResource("1_oumbl")
+
+[node name="Victory_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(0.920995, 0.920995, 0.920995, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_k45f4")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -507.0
+offset_top = -280.0
+offset_right = -68.0
+offset_bottom = -183.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(5.77569e-07, 0.684682, 0.149356, 1)
+theme_override_constants/shadow_offset_y = 4
+theme_override_fonts/font = ExtResource("2_i3py5")
+theme_override_font_sizes/font_size = 84
+text = "VICTORY"
