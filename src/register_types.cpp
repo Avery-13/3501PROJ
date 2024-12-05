@@ -13,6 +13,11 @@
 #include "game_object.h"
 #include "beacon_object.h"
 
+#include "grass.h"
+#include "grassBase.h"
+#include "hierarchyPart.h"
+#include "grassMid.h"
+
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
@@ -34,6 +39,13 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_abstract_class<GameObject>();
 	ClassDB::register_class<BeaconObject>();
 	ClassDB::register_class<ParticleSystem3501>();
+
+	//For Hierarchy
+	ClassDB::register_class<HierarchyPart>();
+	ClassDB::register_class<Grass>();
+	ClassDB::register_class<GrassBase>();
+	ClassDB::register_class<GrassMid>();
+
 }
 
 // gets called when godot unloads our plugin

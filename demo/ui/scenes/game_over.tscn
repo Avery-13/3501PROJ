@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4cxnwn54sxpk"]
+
+[ext_resource type="Texture2D" uid="uid://bqjtvoymyjjbd" path="res://assets/textures/Main_Menu/game_over_bg.jpg" id="1_72a0v"]
+[ext_resource type="FontFile" uid="uid://ce1a8cm4ghcmh" path="res://assets/textures/Main_Menu/Horror.ttf" id="2_ts0d1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qxjac"]
+texture = ExtResource("1_72a0v")
+
+[node name="Game_Over" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(0.556953, 0.556953, 0.556953, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_qxjac")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.5
+offset_top = -198.0
+offset_right = 196.5
+offset_bottom = -124.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0.498039, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 14
+theme_override_fonts/font = ExtResource("2_ts0d1")
+theme_override_font_sizes/font_size = 84
+text = "GAME OVER"
