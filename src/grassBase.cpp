@@ -9,6 +9,8 @@ void GrassBase::_bind_methods() {
 GrassBase::GrassBase() {
 	// This is just to line them up for the starting scene -- change this for sure. 
 	local_position = Vector3(0.235,0.109,0.183);
+	//timeTest = Time::get_singleton()->get_ticks_msec;
+	currTime = Time::get_singleton()->get_ticks_msec();
 }
 
 GrassBase::~GrassBase(){
@@ -38,8 +40,8 @@ void GrassBase::_process(double delta){
 	set_global_transform(get_transformation_matrix()); 
 
 	        //Access current time for swaying
-    Time* timeTest = new Time;
-    int currTime = (timeTest->get_ticks_msec());
+    currTime = Time::get_singleton()->get_ticks_msec();
+	
 
         //Sway the whole model
     set_orbit_rotation(Vector3(0,0,0.2*sin(0.0025*currTime)));

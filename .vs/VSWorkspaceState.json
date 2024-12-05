@@ -3,8 +3,9 @@
     "",
     "\\demo",
     "\\demo\\assets",
-    "\\demo\\assets\\shaders"
+    "\\demo\\assets\\shaders",
+    "\\src"
   ],
-  "SelectedNode": "\\demo\\assets\\shaders\\test.gdshader",
+  "SelectedNode": "\\src\\custom_scene_3501.cpp",
   "PreviewInSolutionExplorer": false
 }

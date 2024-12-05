@@ -13,8 +13,9 @@ class GrassBase : public HierarchyPart {
     // this macro sets up a few internal things
 	GDCLASS(GrassBase, HierarchyPart);
 
-// private:
-
+private:
+	//Time* timeTest;
+	int currTime;
 	
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
