@@ -6,10 +6,11 @@ using namespace godot;
 
 void CustomScene3501::_bind_methods() {}
 
-CustomScene3501::CustomScene3501() : Node3D(), main_camera(nullptr)
+CustomScene3501::CustomScene3501() : Node3D(), main_camera(nullptr), rng()
 {
 	time_passed = 0.0;
 	collectCount = 0;
+	rng.randomize();
 }
 
 CustomScene3501::~CustomScene3501()
@@ -119,6 +120,8 @@ void CustomScene3501::_enter_tree()
 	//create_and_add_as_child<TerrainInstance>(sands, "Test terrain", false);
 
 	// The vectors are brand new every time you run the simulation or reload the project.
+
+
 }
 
 void CustomScene3501::_ready()
@@ -132,6 +135,53 @@ void CustomScene3501::_ready()
 	set_object_positions();
 	// now that we have set the camera's starting state, let's reinitialize its variables
 	main_camera->_ready();
+
+	// Add the Firefly Swarm particle system
+    create_particle_system("Firefly Swarm", "firefly");
+
+	UtilityFunctions::print(particle_systems.size());
+	//particle set up
+	for(int index = 0; index < particle_systems.size(); index++){
+		// the current particle system we are setting up
+		GPUParticles3D* particle_system = particle_systems[index];
+		int num_particles;
+
+		// this should never be needed, but can't hurt to have. 
+		if(particle_system == nullptr) continue; 
+		
+		// Grabs the pointer to the spatial material so that you can change stuff. 
+		// Note: The * operator with a Ref<Class> instance will give you the pointer to it
+		ShaderMaterial* shader_material = dynamic_cast<ShaderMaterial*>(*particle_system->get_draw_pass_mesh(0)->surface_get_material(0));
+		ShaderMaterial* process_material = dynamic_cast<ShaderMaterial*>(*particle_system->get_process_material());
+		switch(index){
+			// if you need anything to be different, do it here!
+			case 0: 
+				// Setup for Firefly Swarm
+				UtilityFunctions::print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+				num_particles = 50;
+				particle_system->set_amount(num_particles);
+				particle_system->set_lifetime(10.0);
+				//particle_system->set_pre_process_time(10.0);
+				
+
+				// Set the texture image
+				shader_material->set_shader_parameter("texture_image", ResourceLoader::get_singleton()->load("res://assets/textures/flame4x4orig.png"));
+
+				// Set shader parameters
+				shader_material->set_shader_parameter("num_particles", num_particles);
+				process_material->set_shader_parameter("num_particles", num_particles);
+
+				process_material->set_shader_parameter("min_position_range", Vector3(0.0, 0.0, 0.0f));
+    			process_material->set_shader_parameter("max_position_range", Vector3(20.0, 20.0, 10.0f));
+
+				particle_system->set_global_position(Vector3(20.0f, 0, 0));
+				particle_system->set_emitting(true);
+				break;
+
+		}
+
+	}
+
 }
 
 // called every frame (as often as possible)
@@ -186,8 +236,14 @@ void CustomScene3501::print_tree(Node* node, int depth) {
     }
 }
 
-// this is just so that you have references when you are coding the camera movement.
-// REMOVE THIS WHEN YOU GO TO MAKE THE collectibles
+// it felt a bit cleaner in my eyes to bundle this together
+// not full file name for the shader; see the particle system code for more detail
+void CustomScene3501::create_particle_system(String node_name, String shader_name){
+	// if you want to use non-zero argument constructors, here is an example of how to do that
+	ParticleSystem3501* system = memnew(ParticleSystem3501(shader_name));
+	add_as_child(system, node_name, true); 
+	particle_systems.push_back(system);
+}
 
 template <class T>
 // returns true if pointer is brand-new; false if retrieved from SceneTree
@@ -218,6 +274,44 @@ bool CustomScene3501::create_and_add_as_child(T *&pointer, String name, bool sea
 	else
 	{
 		pointer = dynamic_cast<T *>(child);
+		return false;
+	}
+}
+
+// This is a variant of the usual one. It allows you to more easily use a non-zero argument constructor, which I noticed some of you have struggled with. Hope this helps!
+// returns true if pointer is brand-new; false if retrieved from SceneTree
+// deletes the memory if the node exists in the scenetree and isn't null when passed in
+// IMPORTANT: IF SEARCH IS FALSE, IT ASSUMES THAT THE POINTER IS TO A VALID INSTANCE ALREADY AKA MEMNEW HAS ALREADY BEEN CALLED
+template <class T>
+bool CustomScene3501::add_as_child(T* &pointer, String name, bool search){
+	// this is the default behaviour
+	// added the search parameter so that we can skip the slow "find_child" call during runtime
+	if(search == false){
+		pointer->set_name(name);
+		add_child(pointer);
+		pointer->set_owner(get_tree()->get_edited_scene_root());
+		return true;
+	}
+
+	// always only have to search once if we save it here
+	Node* child = find_child(name);
+	
+	// if the node hasn't been added to the SceneTree yet
+	if(child == nullptr){
+		pointer->set_name(name);
+		add_child(pointer);
+		pointer->set_owner(get_tree()->get_edited_scene_root());
+		return true;
+	}
+	// if we are grabbing the existent one, clean up the memory to the new one that was just made and passed as an argument
+	else{
+		if(pointer == nullptr){
+			UtilityFunctions::print("There is a nullptr being passed to add_as_child...");
+		}
+		else{
+			memdelete(pointer);
+		}
+		pointer = dynamic_cast<T*>(child);
 		return false;
 	}
 }

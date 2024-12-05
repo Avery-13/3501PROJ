@@ -3,6 +3,7 @@
 // include the headers from your classes
 #include "quat_camera.h"
 #include "custom_scene_3501.h"
+#include "particle_system_3501.h"
 
 #include "example_abstract_class.h"
 #include "example_derived_class.h"
@@ -32,6 +33,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<TerrainInstance>();
 	ClassDB::register_abstract_class<GameObject>();
 	ClassDB::register_class<BeaconObject>();
+	ClassDB::register_class<ParticleSystem3501>();
 }
 
 // gets called when godot unloads our plugin

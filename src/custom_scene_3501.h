@@ -31,11 +31,13 @@
 
 #include <godot_cpp/classes/grid_container.hpp>
 #include <godot_cpp/classes/label.hpp>
+#include <godot_cpp/classes/random_number_generator.hpp>
 
 #include "defs.h"
 #include "quat_camera.h"
 #include "example_derived_class.h"
 #include "beacon_object.h"
+#include "particle_system_3501.h"
 // everything in gdextension is defined in this namespace
 namespace godot {
 class CustomScene3501 : public Node3D {
@@ -49,6 +51,8 @@ private:
 	GridContainer* main_ui;
 	Vector<ExampleDerivedClass*> reference_instances;
 	Vector<BeaconObject*> collectibles;
+	Vector<ParticleSystem3501*> particle_systems;
+
 	//TerrainInstance* sands;
 	MeshInstance3D* screen_quad_instance;
 	ShaderMaterial* screen_space_shader_material;
@@ -73,12 +77,20 @@ public:
 	void _enter_tree ( ) override;
 	void _ready ( ) override;
 
+	RandomNumberGenerator rng;
+
 	void print_tree(Node* node, int depth = 0);
+
+	// shader prefix refers to name_ss.gdshader and name_ps.gdshader; should become more clear when you look at the particle system class provided's code
+	void create_particle_system(String node_name, String shader_name);
 
 	// the return type represents whether it existed already; true if it is brand-new; false if it was retrieved from the SceneTree
 	// search defines whether the scenetree should be checked for an instance
 	template <class T>
 	bool create_and_add_as_child(T* &pointer, String name, bool search = false);
+
+	template <class T>
+	bool add_as_child(T* &pointer, String name, bool search = false);
 
 };
 
