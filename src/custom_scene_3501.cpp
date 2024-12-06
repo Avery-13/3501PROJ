@@ -23,6 +23,7 @@ void CustomScene3501::_enter_tree()
 
 	if (DEBUG)
 		UtilityFunctions::print("Enter Tree - CustomScene3501.");
+	//create_and_add_as_child(sands, "New Sand Dunes", false);
 	setup_reference_boxes();
 
 	// Add the Firefly Swarm particle system
@@ -92,6 +93,26 @@ void CustomScene3501::_enter_tree()
 			screen_quad_instance->set_mesh(quad_mesh);
 			screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
 
+			/*
+			screen_OOB_instance = memnew(MeshInstance3D);
+			screen_OOB_instance->set_name("Damaged Vision");
+			main_camera->add_child(screen_OOB_instance);
+			screen_OOB_instance->set_owner(get_tree()->get_edited_scene_root());
+			// Setup the screen-space shader
+			QuadMesh* quad_mesh2 = memnew(QuadMesh);
+			quad_mesh2->set_size(Vector2(2, 2)); // this will cover the whole screen
+			quad_mesh2->set_flip_faces(true);
+
+			OOB_space_shader_material = memnew(ShaderMaterial);
+			// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
+			Ref<Shader> shader1 = ResourceLoader::get_singleton()->load("res://assets/shaders/effect2.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
+			OOB_space_shader_material->set_shader(shader1);
+			quad_mesh2->surface_set_material(0, OOB_space_shader_material);
+			screen_OOB_instance->set_mesh(quad_mesh2);
+			screen_OOB_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
+			*/
+			
+
 		}
 		
 	}else{
@@ -119,9 +140,41 @@ void CustomScene3501::_enter_tree()
 		quad_mesh->surface_set_material(0, screen_space_shader_material);
 		screen_quad_instance->set_mesh(quad_mesh);
 		screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
+
+		/*
+		screen_OOB_instance = memnew(MeshInstance3D);
+		screen_OOB_instance->set_name("Damaged Vision");
+		main_camera->add_child(screen_OOB_instance);
+		screen_OOB_instance->set_owner(get_tree()->get_edited_scene_root());
+		// Setup the screen-space shader
+		QuadMesh* quad_mesh2 = memnew(QuadMesh);
+		quad_mesh2->set_size(Vector2(2, 2)); // this will cover the whole screen
+		quad_mesh2->set_flip_faces(true);
+
+		OOB_space_shader_material = memnew(ShaderMaterial);
+		// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
+		Ref<Shader> shader1 = ResourceLoader::get_singleton()->load("res://assets/shaders/effect2.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
+		OOB_space_shader_material->set_shader(shader1);
+		quad_mesh2->surface_set_material(0, OOB_space_shader_material);
+		screen_OOB_instance->set_mesh(quad_mesh2);
+		screen_OOB_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
+		
+		
+		*/
+		
+
 	}
+	Node* existing_terrain = find_child("Sand Dunes", false, false);
+	if (existing_terrain)
+	{
+		sands = Object::cast_to<TerrainInstance>(existing_terrain);
+		UtilityFunctions::print("Sand Dunes already exists and is assigned to sands.");
+	}
+	else {
 
-
+		create_and_add_as_child(sands, "Sand Dunes", false);
+	}
+	
 
 
 	//create_and_add_as_child<TerrainInstance>(sands, "Test terrain", false);
@@ -140,7 +193,10 @@ void CustomScene3501::_ready()
 		UtilityFunctions::print("Ready - CustomScene3501.");
 
 	// set the player's position (the camera)
-	main_camera->set_global_position(Vector3(5.0, 5.0, 25.0f));
+	//sands->set_global_position
+	float mapTest = sands->get_terrain_mesh()->get_height_map().get(5.0).get(25.0);
+	main_camera->set_global_position(Vector3(5.0, mapTest+1.0, 25.0f));
+	main_camera->get_player()->set_global_position(Vector3(5.0, mapTest + 1.0, 25.0f));
 	main_camera->look_at(Vector3(0, 0, 0)); // there are some bugs with this function if the up vector is parallel to the look-at position; check the manual for a link to more info
 	set_object_positions();
 	// now that we have set the camera's starting state, let's reinitialize its variables
@@ -217,6 +273,11 @@ void CustomScene3501::_process(double delta)
 		UtilityFunctions::print("DONE");
 	}
 	
+	if (playerOOB()) {
+		//screen_OOB_instance->show();
+		UtilityFunctions::print("Close to edge");
+	}
+
 	if (collectCount >= 5) {
 		UtilityFunctions::print("All have been collected, ending now");
 		get_tree()->quit();
@@ -351,6 +412,14 @@ void CustomScene3501::setup_reference_boxes() {
 		}
 		collectibles.push_back(obj_instance);  // Add each beacon to the collectibles collection  DB
 	}
+
+	// NEW GRASS CREATION LOOP ------------------------------------------------------------------------------ They're created but their meshes aren't there
+	for (int num = 0; num < 50; num++) {
+		Grass* grass_instance;
+
+		create_and_add_as_child(grass_instance, (vformat("Grass_%d", num)), true); // Create the beacon as a node and add it to the scene tree  DB
+		grass_collection.push_back(grass_instance);  // Add each beacon to the collectibles collection  DB
+	}
 }
 
 
@@ -366,10 +435,36 @@ void CustomScene3501::set_object_positions()
 		float x = rng->randf_range(0.0f, 200.0f);
 		float y = rng->randf_range(0.0f, 3.0f);
 		float z = rng->randf_range(0.0f, 200.0f);
-		collectibles.get(i)->set_global_position(Vector3(x, y, z));
+		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
+		collectibles.get(i)->set_global_position(Vector3(x, newY, z));
 		//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
 	}
 
+	// NEW GRASS POSITIONING USING HEIGHT MAP-------------------------------------------------------------------------
+	for (int g = 0; g < 50; g++) // Set all the checkpoint positions
+	{
+		// x and y values are randomized, but to make this similar to a real collectibles the z value is consistently moving further and further back  DB
+		// ergo, the last checkpoint will be at the opposite end of the track as the first   DB
+		float x = rng->randf_range(0.0f, 50.0f);
+		float z = rng->randf_range(0.0f, 50.0f);
+		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
+		grass_collection.get(g)->set_global_position(Vector3(x, newY+3.0, z));
+		//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
+	}
+
+}
+
+bool CustomScene3501::playerOOB()
+{
+	if (main_camera->get_player()->get_position().x < 2.0
+		|| main_camera->get_player()->get_position().x > 198.0 
+		|| main_camera->get_player()->get_position().z < 2.0 
+		|| main_camera->get_player()->get_position().z > 198.0) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 /*

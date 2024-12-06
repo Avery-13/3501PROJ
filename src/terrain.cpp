@@ -13,7 +13,8 @@ void TerrainMesh::_bind_methods() {
 TerrainMesh::TerrainMesh() {
 	// Initialize any variables here.
 	time_passed = 0.0;
-
+	array_width = -1;
+	array_height = -1;
 	setup_terrain();
 	setup_arrays();
 }
@@ -123,6 +124,20 @@ void TerrainMesh::setup_terrain(float total_height, float circle_radius, int gri
 		}
 	}
 
+	array_width = xDimension;
+	array_height = zDimension;
+	for (int x = 0; x < array_width; x++) {
+		Vector<float> height_map_row;
+		for (int y = 0; y < array_width; y++) {
+			height_map_row.append(vertices[x * array_width + y].y);
+		}
+		height_map.append(height_map_row);
+	}
+
+}
+
+Vector<Vector<float>> TerrainMesh::get_height_map() {
+	return height_map;
 }
 
 /*

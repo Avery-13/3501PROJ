@@ -33,6 +33,8 @@
 #include <godot_cpp/classes/resource.hpp> 
 #include <godot_cpp/classes/resource_loader.hpp>
 
+#include <godot_cpp/templates/vector.hpp>
+
 #include "defs.h"
 
 // everything in gdextension is defined in this namespace
@@ -51,6 +53,13 @@ namespace godot {
 		PackedColorArray colors;		// color associated with that vertex
 		PackedInt32Array indices;		// creates the triangles; interpreted as triples.
 
+		// dimensions of mesh in number of vertices
+		int array_width;
+		int array_height;
+
+		// since Vector<Vector<float>> is not an option for saving, we need to have a PackedFloat32Array that has the same information. 
+		Vector<Vector<float>> height_map;
+
 	protected:
 		// a static function that Godot will call to find out which methods can be called and which properties it exposes
 		static void _bind_methods();
@@ -62,6 +71,7 @@ namespace godot {
 		void setup_terrain(float total_height = 5.0f, float circle_radius = 2.0f, int grid_cell = 90, int octave = 30); //increased size of cone and changed argument name DB
 		void setup_arrays();
 		void clear_arrays();
+		Vector<Vector<float>> get_height_map();
 	};
 
 }

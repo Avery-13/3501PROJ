@@ -38,6 +38,8 @@
 #include "example_derived_class.h"
 #include "beacon_object.h"
 #include "particle_system_3501.h"
+#include "terrain_instance.h"
+#include "grass.h"
 // everything in gdextension is defined in this namespace
 namespace godot {
 class CustomScene3501 : public Node3D {
@@ -52,14 +54,20 @@ private:
 	Vector<ExampleDerivedClass*> reference_instances;
 	Vector<BeaconObject*> collectibles;
 	Vector<ParticleSystem3501*> particle_systems;
+	Vector<Grass*> grass_collection;
 
-	//TerrainInstance* sands;
+	TerrainInstance* sands;
 	MeshInstance3D* screen_quad_instance;
 	ShaderMaterial* screen_space_shader_material;
+
+	//MeshInstance3D* screen_OOB_instance;
+	//ShaderMaterial* OOB_space_shader_material;
 	// create and setup the boxes; for this one they don't need to have separate create and setup functions. 
 	// This shouldn't be called in the assignment that you hand in. You can choose to delete the code if you want to. 
 	void setup_reference_boxes();
 	void set_object_positions();
+
+	bool playerOOB();
 
 
 	int numObjs = 5;

@@ -4,8 +4,9 @@
     "\\demo",
     "\\demo\\assets",
     "\\demo\\assets\\shaders",
+    "\\demo\\scenes",
     "\\src"
   ],
-  "SelectedNode": "\\src\\custom_scene_3501.cpp",
+  "SelectedNode": "\\src\\grass.cpp",
   "PreviewInSolutionExplorer": false
 }

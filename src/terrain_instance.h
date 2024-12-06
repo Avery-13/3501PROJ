@@ -45,6 +45,8 @@ namespace godot {
 	private:
 		double time_passed;
 
+		TerrainMesh* terrain_mesh;
+
 	protected:
 		// a static function that Godot will call to find out which methods can be called and which properties it exposes
 		static void _bind_methods();
@@ -57,6 +59,7 @@ namespace godot {
 		void _ready() override;
 		void _process(double delta) override;
 
+		inline TerrainMesh* get_terrain_mesh() { return terrain_mesh; }
 
 	};
 

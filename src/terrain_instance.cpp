@@ -29,7 +29,7 @@ void TerrainInstance::_enter_tree() {
 	set_mesh(mesh);
 	set_use_collision(true);
 	set_collision_priority(1);
-	
+	terrain_mesh = mesh;
 
 }
 
