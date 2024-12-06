@@ -463,6 +463,13 @@ void CustomScene3501::setup_reference_boxes() {
 			obj_instance->set_mesh(collectMesh2);
 			obj_instance->set_use_collision(true);
 			obj_instance->set_collision_priority(1);
+
+			//Set texture
+			StandardMaterial3D* mat = memnew(StandardMaterial3D());
+			Ref<Texture2D> spaceshipTexture = ResourceLoader::get_singleton()->load("res://assets/textures/spaceship_texture.jpg");
+
+			mat->set_texture(BaseMaterial3D::TEXTURE_ALBEDO, spaceshipTexture);
+			obj_instance->set_material(mat);
 			
 		}
 		envObjects.push_back(obj_instance);

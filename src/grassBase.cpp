@@ -26,7 +26,7 @@ void GrassBase::_enter_tree ( ) {
     boxBase->set_size(Vector3(0.02, 0.12, 0.02));
 
 	StandardMaterial3D* material = memnew(StandardMaterial3D);
-	material->set_albedo(Color(0.8, 0.8, 0, 1));
+	material->set_albedo(Color(0.9, 0.3, 0.3, 1));
 	boxBase->surface_set_material(0, material);
 	set_joint_position(Vector3(0,-0.06,0));
 
