@@ -16,7 +16,7 @@ GrassMid::~GrassMid(){
 }
 
 void GrassMid::_enter_tree ( ) {
-	if(DEBUG) UtilityFunctions::print("Enter Tree - GrassMid.");
+	//if(DEBUG) UtilityFunctions::print("Enter Tree - GrassMid.");
 	
 	// Create the springs to hold Jack up
 

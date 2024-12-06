@@ -7,24 +7,40 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\custom_scene_3501.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\custom_scene_3501.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\custom_scene_3501.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\grass.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\grass.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\grassBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\grassBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\grassMid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\grassMid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\hierarchyPart.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\hierarchyPart.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\grass.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\grass.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\terrain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\terrain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\quat_camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\quat_camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\terrain_instance.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\terrain_instance.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\custom_scene_3501.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\custom_scene_3501.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\terrain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\terrain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\terrain_instance.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -49,10 +65,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\demo\\assets\\shaders\\firefly_ps.gdshader||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:demo\\assets\\shaders\\firefly_ps.gdshader||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\quat_camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\quat_camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,24 +74,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "hierarchyPart.cpp",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\hierarchyPart.cpp",
+              "RelativeDocumentMoniker": "src\\hierarchyPart.cpp",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\hierarchyPart.cpp",
+              "RelativeToolTip": "src\\hierarchyPart.cpp",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB8AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-06T22:46:38.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "grassMid.cpp",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\grassMid.cpp",
+              "RelativeDocumentMoniker": "src\\grassMid.cpp",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\grassMid.cpp",
+              "RelativeToolTip": "src\\grassMid.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-06T22:46:28.212Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "grassBase.cpp",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\grassBase.cpp",
+              "RelativeDocumentMoniker": "src\\grassBase.cpp",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\grassBase.cpp",
+              "RelativeToolTip": "src\\grassBase.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABQAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-06T22:46:10.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "grass.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\grass.cpp",
               "RelativeDocumentMoniker": "src\\grass.cpp",
               "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\grass.cpp",
               "RelativeToolTip": "src\\grass.cpp",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABMAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-12-06T01:39:35.771Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "grass.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\grass.h",
               "RelativeDocumentMoniker": "src\\grass.h",
@@ -92,7 +143,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "particle_system_3501.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\particle_system_3501.cpp",
               "RelativeDocumentMoniker": "src\\particle_system_3501.cpp",
@@ -104,7 +155,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "particle_system_3501.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\particle_system_3501.h",
               "RelativeDocumentMoniker": "src\\particle_system_3501.h",
@@ -116,7 +167,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "firefly_ss.gdshader",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\demo\\assets\\shaders\\firefly_ss.gdshader",
               "RelativeDocumentMoniker": "demo\\assets\\shaders\\firefly_ss.gdshader",
@@ -128,7 +179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "firefly_ps.gdshader",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\demo\\assets\\shaders\\firefly_ps.gdshader",
               "RelativeDocumentMoniker": "demo\\assets\\shaders\\firefly_ps.gdshader",
@@ -140,19 +191,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "terrain_instance.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\terrain_instance.cpp",
               "RelativeDocumentMoniker": "src\\terrain_instance.cpp",
               "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\terrain_instance.cpp",
               "RelativeToolTip": "src\\terrain_instance.cpp",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB8AAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-02T05:03:56.181Z"
+              "WhenOpened": "2024-12-02T05:03:56.181Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "terrain_instance.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\terrain_instance.h",
               "RelativeDocumentMoniker": "src\\terrain_instance.h",
@@ -164,7 +216,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "terrain.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\terrain.cpp",
               "RelativeDocumentMoniker": "src\\terrain.cpp",
@@ -176,7 +228,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "terrain.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\terrain.h",
               "RelativeDocumentMoniker": "src\\terrain.h",
@@ -188,15 +240,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 6,
               "Title": "quat_camera.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\quat_camera.cpp",
               "RelativeDocumentMoniker": "src\\quat_camera.cpp",
               "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\quat_camera.cpp",
               "RelativeToolTip": "src\\quat_camera.cpp",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAHYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-27T20:23:56.565Z"
+              "WhenOpened": "2024-11-27T20:23:56.565Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -206,20 +259,20 @@
               "RelativeDocumentMoniker": "src\\custom_scene_3501.cpp",
               "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\custom_scene_3501.cpp",
               "RelativeToolTip": "src\\custom_scene_3501.cpp",
-              "ViewState": "AgIAAEQBAAAAAAAAAAAswJ8BAACYAAAAAAAAAA==",
+              "ViewState": "AgIAAPkAAAAAAAAAAAAswBIBAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-27T20:23:34.41Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "custom_scene_3501.h",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\custom_scene_3501.h",
               "RelativeDocumentMoniker": "src\\custom_scene_3501.h",
               "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\3501PROJ\\src\\custom_scene_3501.h",
               "RelativeToolTip": "src\\custom_scene_3501.h",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAADgAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAADkAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-11-27T20:07:09.195Z",
               "EditorCaption": ""

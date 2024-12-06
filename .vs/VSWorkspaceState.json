@@ -3,10 +3,13 @@
     "",
     "\\demo",
     "\\demo\\assets",
+    "\\demo\\assets\\Environment",
+    "\\demo\\assets\\Environment\\low-poly-sci-fi-spaceship",
+    "\\demo\\assets\\Environment\\Meshes",
     "\\demo\\assets\\shaders",
     "\\demo\\scenes",
     "\\src"
   ],
-  "SelectedNode": "\\src\\grass.cpp",
+  "SelectedNode": "\\src\\hierarchyPart.cpp",
   "PreviewInSolutionExplorer": false
 }

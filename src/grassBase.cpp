@@ -18,7 +18,7 @@ GrassBase::~GrassBase(){
 }
 
 void GrassBase::_enter_tree ( ) {
-	if(DEBUG) UtilityFunctions::print("Enter Tree - GrassBase.");
+	//if(DEBUG) UtilityFunctions::print("Enter Tree - GrassBase.");
 	
 	// Create a Box (base of the grass)
 	BoxMesh* boxBase = memnew(BoxMesh);

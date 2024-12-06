@@ -25,11 +25,11 @@ HierarchyPart::~HierarchyPart(){
 }
 
 void HierarchyPart::_enter_tree ( ){
-	if(DEBUG) UtilityFunctions::print("Enter Tree - HierarchyPart."); 
+	//if(DEBUG) UtilityFunctions::print("Enter Tree - HierarchyPart."); 
 }
 
 void HierarchyPart::_ready ( ){
-	if(DEBUG) UtilityFunctions::print("Ready - ", get_name()); // since this will be called by many of the parts
+	//if(DEBUG) UtilityFunctions::print("Ready - ", get_name()); // since this will be called by many of the parts
 
 	set_global_transform(get_transformation_matrix());  
 }

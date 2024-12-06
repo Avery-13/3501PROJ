@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://chx4o6tvkgsiv"]
+[gd_scene load_steps=5 format=3 uid="uid://chx4o6tvkgsiv"]
 
+[ext_resource type="Script" path="res://ui/scenes/victory_screen.gd" id="1_ax5ov"]
 [ext_resource type="Texture2D" uid="uid://cre6gmeui8yy6" path="res://assets/textures/Main_Menu/Victory_bg.jpg" id="1_oumbl"]
 [ext_resource type="FontFile" uid="uid://ce1a8cm4ghcmh" path="res://assets/textures/Main_Menu/Horror.ttf" id="2_i3py5"]
 
@@ -13,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ax5ov")
 
 [node name="Panel" type="Panel" parent="."]
 modulate = Color(0.920995, 0.920995, 0.920995, 1)
@@ -42,3 +44,32 @@ theme_override_constants/shadow_offset_y = 4
 theme_override_fonts/font = ExtResource("2_i3py5")
 theme_override_font_sizes/font_size = 84
 text = "VICTORY"
+
+[node name="Replay" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.185
+anchor_top = 0.305
+anchor_right = 0.185
+anchor_bottom = 0.305
+offset_left = -30.12
+offset_top = -15.64
+offset_right = 29.88
+offset_bottom = 15.36
+text = "Replay"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.317
+anchor_top = 0.303
+anchor_right = 0.317
+anchor_bottom = 0.303
+offset_left = -21.184
+offset_top = -15.344
+offset_right = 20.816
+offset_bottom = 15.656
+text = "Quit"
+
+[connection signal="pressed" from="Replay" to="." method="_on_replay_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

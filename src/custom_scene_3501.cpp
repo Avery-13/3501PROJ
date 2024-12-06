@@ -268,16 +268,16 @@ void CustomScene3501::_process(double delta)
 		for (int i = 0; i < numObjs; i++) {
 			BeaconObject* check = collectibles[i];
 			if (check->check_collisions(main_camera->get_player()->get_position())) {
-				if (i == 0) {
-					Node* label = main_ui->find_child("Label", false, false);
-					Label* l1 = Object::cast_to<Label>(label);
-					l1->set_text("Item 1: FOUND");
-				}
+				collectCount += 1;
+				Node* label = main_ui->find_child("Label", false, false);
+				Label* l1 = Object::cast_to<Label>(label);
+				l1->set_text(vformat("Items collected: %d/5",collectCount));
+				
 				UtilityFunctions::print("HIT");
 				numObjs -= 1;
 				collectibles.remove_at(i);
 				check->queue_free();
-				collectCount += 1;
+				
 			}
 
 			// BeaconObject* check = envObjects[i];
@@ -293,14 +293,16 @@ void CustomScene3501::_process(double delta)
 	if (playerOOB()) {
 		//screen_OOB_instance->show();
 		screen_quad_instance->show();
-		UtilityFunctions::print("Close to edge");
+		//UtilityFunctions::print("Close to edge");
 	} else {
 		screen_quad_instance->hide();
 	}
 
 	if (collectCount >= 5) {
 		UtilityFunctions::print("All have been collected, ending now");
-		get_tree()->quit();
+		Input::get_singleton()->set_mouse_mode(Input::MOUSE_MODE_VISIBLE);
+		get_tree()->change_scene_to_file("res://ui/scenes/victory_screen.tscn");
+		
 	}
 	time_passed += delta;
 }
@@ -451,14 +453,16 @@ void CustomScene3501::setup_reference_boxes() {
 
 	//Spawn Non-Collectible Objects (envObjects)
 
-	for(int index = 0; index < numEnvObjs; index++){
-		BeaconObject* obj_instance;
+	for(int s = 0; s < numEnvObjs; s++){
+		CSGMesh3D* obj_instance;
 
 		create_and_add_as_child(obj_instance, "SpaceShip", true);
 
-		if (index == 0){
+		if (s == 0){
 			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshShip.res", "ArrayMesh");
 			obj_instance->set_mesh(collectMesh2);
+			obj_instance->set_use_collision(true);
+			obj_instance->set_collision_priority(1);
 			
 		}
 		envObjects.push_back(obj_instance);
@@ -487,11 +491,11 @@ void CustomScene3501::set_object_positions()
 	{
 		// x and y values are randomized, but to make this similar to a real collectibles the z value is consistently moving further and further back  DB
 		// ergo, the last checkpoint will be at the opposite end of the track as the first   DB
-		float x = rng->randf_range(0.0f, 200.0f);
+		float x = rng->randf_range(0.0f, 20.0f); //test make back to big terrain
 		float y = rng->randf_range(0.0f, 3.0f);
-		float z = rng->randf_range(0.0f, 200.0f);
+		float z = rng->randf_range(0.0f, 20.0f);
 		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
-		collectibles.get(i)->set_global_position(Vector3(x, newY, z));
+		collectibles.get(i)->set_global_position(Vector3(x, newY+0.1, z));
 		//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
 	}
 

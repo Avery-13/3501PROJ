@@ -55,7 +55,7 @@ private:
 	Vector<ExampleDerivedClass*> reference_instances;
 	Vector<BeaconObject*> collectibles;
 
-	Vector<BeaconObject*> envObjects;
+	Vector<CSGMesh3D*> envObjects;
 
 	Vector<ParticleSystem3501*> particle_systems;
 	Vector<Grass*> grass_collection;

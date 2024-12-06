@@ -17,7 +17,7 @@ Grass::~Grass() {
 // Adds the crane parts to the crane in the editor. 
 // the add_child and set_owner should happen in _enter_tree, or we will not see them in the editor
 void Grass::_enter_tree ( ){
-	if(DEBUG) UtilityFunctions::print("Entering Tree - Grass.");
+	//if(DEBUG) UtilityFunctions::print("Entering Tree - Grass.");
 
 	// TODO setup your parts with the correct hierarchical relationships here
 	
@@ -59,7 +59,7 @@ void Grass::_enter_tree ( ){
 }
 
 void Grass::_ready(){
-	if(DEBUG) UtilityFunctions::print("Ready - Grass.");
+	//if(DEBUG) UtilityFunctions::print("Ready - Grass.");
 
 	gBase->set_local_position(get_global_position());
 
