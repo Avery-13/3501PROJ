@@ -71,6 +71,7 @@ public:
 
 	void _enter_tree ( ) override;
 	void _ready ( ) override;
+	void set_Local_pos(Vector3 input);
 
 	template <class T>
 	bool create_and_add_as_child(T* &pointer, String name, bool search = false);

@@ -40,6 +40,7 @@
 #include "particle_system_3501.h"
 #include "terrain_instance.h"
 #include "grass.h"
+#include "environ_object.h"
 // everything in gdextension is defined in this namespace
 namespace godot {
 class CustomScene3501 : public Node3D {
@@ -53,6 +54,9 @@ private:
 	GridContainer* main_ui;
 	Vector<ExampleDerivedClass*> reference_instances;
 	Vector<BeaconObject*> collectibles;
+
+	Vector<BeaconObject*> envObjects;
+
 	Vector<ParticleSystem3501*> particle_systems;
 	Vector<Grass*> grass_collection;
 
@@ -66,11 +70,15 @@ private:
 	// This shouldn't be called in the assignment that you hand in. You can choose to delete the code if you want to. 
 	void setup_reference_boxes();
 	void set_object_positions();
+	void set_grass_positions();
+
+	bool grassPosFlag = false;
 
 	bool playerOOB();
 
 
 	int numObjs = 5;
+	int numEnvObjs = 1;
 	int collectCount;
 
 protected:

@@ -8,7 +8,7 @@ void GrassBase::_bind_methods() {
 // You may not unset this class as top level (from parent)
 GrassBase::GrassBase() {
 	// This is just to line them up for the starting scene -- change this for sure. 
-	local_position = Vector3(0.235,0.109,0.183);
+	local_position = Vector3(0.0,0.0,0.0);
 	//timeTest = Time::get_singleton()->get_ticks_msec;
 	currTime = Time::get_singleton()->get_ticks_msec();
 }
@@ -26,7 +26,7 @@ void GrassBase::_enter_tree ( ) {
     boxBase->set_size(Vector3(0.02, 0.12, 0.02));
 
 	StandardMaterial3D* material = memnew(StandardMaterial3D);
-	material->set_albedo(Color(0.2, 0.8, 0, 1));
+	material->set_albedo(Color(0.8, 0.8, 0, 1));
 	boxBase->surface_set_material(0, material);
 	set_joint_position(Vector3(0,-0.06,0));
 

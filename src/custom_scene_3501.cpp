@@ -26,6 +26,7 @@ void CustomScene3501::_enter_tree()
 	//create_and_add_as_child(sands, "New Sand Dunes", false);
 	setup_reference_boxes();
 
+
 	// Add the Firefly Swarm particle system
     create_particle_system("Firefly Swarm", "firefly");
 
@@ -87,7 +88,7 @@ void CustomScene3501::_enter_tree()
 
 			screen_space_shader_material = memnew(ShaderMaterial);
 			// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
-			Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/test.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
+			Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/effect2.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
 			screen_space_shader_material->set_shader(shader);
 			quad_mesh->surface_set_material(0, screen_space_shader_material);
 			screen_quad_instance->set_mesh(quad_mesh);
@@ -135,7 +136,7 @@ void CustomScene3501::_enter_tree()
 		
 		screen_space_shader_material = memnew(ShaderMaterial);
 		// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
-		Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/test.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
+		Ref<Shader> shader = ResourceLoader::get_singleton()->load("res://assets/shaders/effect2.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
 		screen_space_shader_material->set_shader(shader);
 		quad_mesh->surface_set_material(0, screen_space_shader_material);
 		screen_quad_instance->set_mesh(quad_mesh);
@@ -169,17 +170,21 @@ void CustomScene3501::_enter_tree()
 	{
 		sands = Object::cast_to<TerrainInstance>(existing_terrain);
 		UtilityFunctions::print("Sand Dunes already exists and is assigned to sands.");
+		
 	}
 	else {
 
 		create_and_add_as_child(sands, "Sand Dunes", false);
+		
+
 	}
-	
 
 
 	//create_and_add_as_child<TerrainInstance>(sands, "Test terrain", false);
 
 	// The vectors are brand new every time you run the simulation or reload the project.
+	
+
 
 
 
@@ -199,8 +204,12 @@ void CustomScene3501::_ready()
 	main_camera->get_player()->set_global_position(Vector3(5.0, mapTest + 1.0, 25.0f));
 	main_camera->look_at(Vector3(0, 0, 0)); // there are some bugs with this function if the up vector is parallel to the look-at position; check the manual for a link to more info
 	set_object_positions();
+	set_grass_positions();
+
+	
 	// now that we have set the camera's starting state, let's reinitialize its variables
 	main_camera->_ready();
+	screen_quad_instance->hide();
 
 
 	UtilityFunctions::print(particle_systems.size());
@@ -244,6 +253,9 @@ void CustomScene3501::_ready()
 		}
 
 	}
+	
+
+	
 
 }
 
@@ -267,6 +279,11 @@ void CustomScene3501::_process(double delta)
 				check->queue_free();
 				collectCount += 1;
 			}
+
+			// BeaconObject* check = envObjects[i];
+			// if (check->check_collisions(main_camera->get_player()->get_position())){
+				
+			// }
 		}
 	}
 	else {
@@ -275,7 +292,10 @@ void CustomScene3501::_process(double delta)
 	
 	if (playerOOB()) {
 		//screen_OOB_instance->show();
+		screen_quad_instance->show();
 		UtilityFunctions::print("Close to edge");
+	} else {
+		screen_quad_instance->hide();
 	}
 
 	if (collectCount >= 5) {
@@ -402,23 +422,58 @@ void CustomScene3501::setup_reference_boxes() {
 			//box1->surface_set_material(0, box_material1);
 			obj_instance->set_mesh(collectMesh);
 		}
-		else { // Set all other beacon meshes to be normal  DB
-			BoxMesh* box = memnew(BoxMesh);
-			box->set_size(Vector3(1.0f, 2.0f, 1.0f));
-			StandardMaterial3D* box_material = memnew(StandardMaterial3D);
-			box_material->set_albedo(Color(1.0f, 1.0f, 1.0f, 1.0f));
-			box->surface_set_material(0, box_material);
-			obj_instance->set_mesh(box);
+		//Set the different collectibles to be different ship parts
+		else if (index == 1) { // Set all other beacon meshes to be normal  DB
+			// BoxMesh* box = memnew(BoxMesh);
+			// box->set_size(Vector3(1.0f, 2.0f, 1.0f));
+			// StandardMaterial3D* box_material = memnew(StandardMaterial3D);
+			// box_material->set_albedo(Color(1.0f, 1.0f, 1.0f, 1.0f));
+			// box->surface_set_material(0, box_material);
+
+			
+			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/Mesh01.res", "ArrayMesh");
+			obj_instance->set_mesh(collectMesh2);
+		}
+		else if (index == 2){
+			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/Mesh02.res", "ArrayMesh");
+			obj_instance->set_mesh(collectMesh2);
+		}
+		else if (index == 3){
+			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/Mesh03.res", "ArrayMesh");
+			obj_instance->set_mesh(collectMesh2);
+		}
+		else if (index == 4){
+			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/Mesh04.res", "ArrayMesh");
+			obj_instance->set_mesh(collectMesh2);
 		}
 		collectibles.push_back(obj_instance);  // Add each beacon to the collectibles collection  DB
 	}
 
+	//Spawn Non-Collectible Objects (envObjects)
+
+	for(int index = 0; index < numEnvObjs; index++){
+		BeaconObject* obj_instance;
+
+		create_and_add_as_child(obj_instance, "SpaceShip", true);
+
+		if (index == 0){
+			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshShip.res", "ArrayMesh");
+			obj_instance->set_mesh(collectMesh2);
+			
+		}
+		envObjects.push_back(obj_instance);
+	}
+
+
 	// NEW GRASS CREATION LOOP ------------------------------------------------------------------------------ They're created but their meshes aren't there
-	for (int num = 0; num < 50; num++) {
+	RandomNumberGenerator* rng = memnew(RandomNumberGenerator); //added to allow for randomized positions
+
+	for (int num = 0; num < 100; num++) {
 		Grass* grass_instance;
 
-		create_and_add_as_child(grass_instance, (vformat("Grass_%d", num)), true); // Create the beacon as a node and add it to the scene tree  DB
-		grass_collection.push_back(grass_instance);  // Add each beacon to the collectibles collection  DB
+		create_and_add_as_child(grass_instance, (vformat("Grass_%d", num)), true); // Create grass
+		grass_collection.push_back(grass_instance);  // Add grass to the collection
+		
 	}
 }
 
@@ -440,26 +495,41 @@ void CustomScene3501::set_object_positions()
 		//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
 	}
 
-	// NEW GRASS POSITIONING USING HEIGHT MAP-------------------------------------------------------------------------
-	for (int g = 0; g < 50; g++) // Set all the checkpoint positions
-	{
-		// x and y values are randomized, but to make this similar to a real collectibles the z value is consistently moving further and further back  DB
-		// ergo, the last checkpoint will be at the opposite end of the track as the first   DB
-		float x = rng->randf_range(0.0f, 50.0f);
-		float z = rng->randf_range(0.0f, 50.0f);
-		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
-		grass_collection.get(g)->set_global_position(Vector3(x, newY+3.0, z));
-		//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
-	}
+	//Set environment object positions
+
+		//Spaceship positioning
+	envObjects.get(0)->set_global_position(Vector3(5,2,190));
+	envObjects.get(0)->set_global_rotation(Vector3(0,90,0));
+
+}
+
+void CustomScene3501::set_grass_positions()
+{
+
+		RandomNumberGenerator* rng = memnew(RandomNumberGenerator); //added to allow for randomized positions
+
+		// NEW GRASS POSITIONING USING HEIGHT MAP-------------------------------------------------------------------------
+		for (int g = 0; g < 100; g++) // Set all the checkpoint positions
+		{
+			// x and y values are randomized, but to make this similar to a real collectibles the z value is consistently moving further and further back  DB
+			// ergo, the last checkpoint will be at the opposite end of the track as the first   DB
+			float x = rng->randf_range(0.0f, 200.0f);
+			float z = rng->randf_range(0.0f, 200.0f);
+			float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
+			grass_collection.get(g)->set_global_position(Vector3(x, newY + 0.1, z));
+			//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
+		}
+
+	
 
 }
 
 bool CustomScene3501::playerOOB()
 {
-	if (main_camera->get_player()->get_position().x < 2.0
-		|| main_camera->get_player()->get_position().x > 198.0 
-		|| main_camera->get_player()->get_position().z < 2.0 
-		|| main_camera->get_player()->get_position().z > 198.0) {
+	if (main_camera->get_player()->get_position().x < 6.0
+		|| main_camera->get_player()->get_position().x > 194.0 
+		|| main_camera->get_player()->get_position().z < 6.0 
+		|| main_camera->get_player()->get_position().z > 194.0) {
 		return true;
 	}
 	else {

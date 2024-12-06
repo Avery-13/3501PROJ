@@ -25,7 +25,7 @@ void GrassMid::_enter_tree ( ) {
 
         //Set material
     StandardMaterial3D* material = memnew(StandardMaterial3D);
-    material->set_albedo(Color(0.2, 0.8, 0, 1));
+    material->set_albedo(Color(0.8, 0.8, 0, 1));
     grassBase->surface_set_material(0, material);
 
     grassBase->set_size(Vector3(0.02, 0.12, 0.02));

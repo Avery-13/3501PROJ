@@ -27,12 +27,6 @@ void Grass::_enter_tree ( ){
 	create_and_add_as_child<GrassBase>(gBaseB, "grassBaseB", true);
 	create_and_add_as_child<GrassBase>(gBaseC, "grassBaseC", true);
 
-	gBaseB->set_local_position(gBase->get_local_position() + Vector3(-0.09,-0.1,0.07));
-	gBaseC->set_local_position(gBase->get_local_position() + Vector3(0.12,-0.074,0.18));
-
-		//Set different orbits
-	gBaseB->set_orbit_rotation(Vector3(0, 0.0024, gBase->get_orbit_rotation().z * -0.8873));
-	gBaseB->set_orbit_rotation(Vector3(0, -0.0011, gBase->get_orbit_rotation().z * 0.7224));
 
 
 
@@ -61,20 +55,20 @@ void Grass::_enter_tree ( ){
 	gMidC2->set_parent(gMidC);
 	
 
-	//Set Scale
-	// gBaseB->set_scale(Vector3(0.7, 0.5, 0.7));
-	// gMidB->set_scale(Vector3(0.7, 0.5, 0.7));
-	// gMidB2->set_scale(Vector3(0.7, 0.5, 0.7));
-
-	// gBaseC->set_scale(Vector3(0.5, 0.6, 0.5));
-	// gMidC->set_scale(Vector3(0.5, 0.6, 0.5));
-	// gMidC2->set_scale(Vector3(0.5, 0.6, 0.5));
 	
 }
 
 void Grass::_ready(){
 	if(DEBUG) UtilityFunctions::print("Ready - Grass.");
-	
+
+	gBase->set_local_position(get_global_position());
+
+	gBaseB->set_local_position(gBase->get_local_position() + Vector3(-0.09,-0.1,0.07));
+	gBaseC->set_local_position(gBase->get_local_position() + Vector3(0.12,-0.074,0.18));
+
+		//Set different orbits
+	gBaseB->set_orbit_rotation(Vector3(0, 0.0024, gBase->get_orbit_rotation().z * -0.8873));
+	gBaseB->set_orbit_rotation(Vector3(0, -0.0011, gBase->get_orbit_rotation().z * 0.7224));
 
 }
 
@@ -136,4 +130,11 @@ bool Grass::create_and_add_as_child_custom(T2* &pointer, String name, T3* &point
 		return false;
 	}
 }
+
+void Grass:: set_Local_pos(Vector3 input){
+	gBase->set_local_position(input);
+	gBaseB->set_local_position(gBase->get_local_position() + Vector3(-0.09,-0.1,0.07));
+	gBaseC->set_local_position(gBase->get_local_position() + Vector3(0.12,-0.074,0.18));
+}
+
 
