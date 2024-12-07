@@ -54,6 +54,7 @@ private:
 	GridContainer* main_ui;
 	Vector<ExampleDerivedClass*> reference_instances;
 	Vector<BeaconObject*> collectibles;
+	Vector<BeaconObject*> arrows;
 
 	Vector<CSGMesh3D*> envObjects;
 
@@ -78,7 +79,7 @@ private:
 
 
 	int numObjs = 5;
-	int numEnvObjs = 1;
+	int numEnvObjs = 450;
 	int collectCount;
 
 protected:

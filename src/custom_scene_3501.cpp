@@ -30,6 +30,13 @@ void CustomScene3501::_enter_tree()
 	// Add the Firefly Swarm particle system
     create_particle_system("Firefly Swarm", "firefly");
 
+	// Add the Thruster particle system
+    create_particle_system("Thruster", "thruster");
+
+	// // Add the collectible indicator particle system
+	// create_particle_system("Indicator 1", "indicator");
+
+
 
     // Traverse up the tree to find the parent (World)
     Node* world_node = get_parent();
@@ -200,8 +207,8 @@ void CustomScene3501::_ready()
 	// set the player's position (the camera)
 	//sands->set_global_position
 	float mapTest = sands->get_terrain_mesh()->get_height_map().get(5.0).get(25.0);
-	main_camera->set_global_position(Vector3(5.0, mapTest+1.0, 25.0f));
-	main_camera->get_player()->set_global_position(Vector3(5.0, mapTest + 1.0, 25.0f));
+	main_camera->set_global_position(Vector3(28.0f, mapTest + 1.0, 162.0f));
+	main_camera->get_player()->set_global_position(Vector3(28.0f, mapTest + 1.0, 162.0f));
 	main_camera->look_at(Vector3(0, 0, 0)); // there are some bugs with this function if the up vector is parallel to the look-at position; check the manual for a link to more info
 	set_object_positions();
 	set_grass_positions();
@@ -230,7 +237,7 @@ void CustomScene3501::_ready()
 			// if you need anything to be different, do it here!
 			case 0: 
 				// Setup for Firefly Swarm
-				num_particles = 50;
+				num_particles = 1000;
 				particle_system->set_amount(num_particles);
 				particle_system->set_lifetime(10.0);
 				//particle_system->set_pre_process_time(10.0);
@@ -244,12 +251,47 @@ void CustomScene3501::_ready()
 				process_material->set_shader_parameter("num_particles", num_particles);
 
 				process_material->set_shader_parameter("min_position_range", Vector3(0.0, 0.0, 0.0f));
-    			process_material->set_shader_parameter("max_position_range", Vector3(20.0, 20.0, 10.0f));
+    			process_material->set_shader_parameter("max_position_range", Vector3(200.0, 20.0, 200.0f));
 
-				particle_system->set_global_position(Vector3(20.0f, 0, 0));
+				particle_system->set_global_position(Vector3(80.0f, 0, 20.0f));
 				particle_system->set_emitting(true);
 				break;
+			case 1:
+			
+				num_particles = 20000;
+				particle_system->set_amount(num_particles);
+				particle_system->set_lifetime(10.0);
+				//particle_system->set_pre_process_time(10.0);
+				
 
+				// Set the texture image
+				shader_material->set_shader_parameter("texture_image", ResourceLoader::get_singleton()->load("res://assets/textures/flame4x4orig.png"));
+
+				// Set shader parameters
+				shader_material->set_shader_parameter("num_particles", num_particles);
+				
+				particle_system->set_global_position(Vector3(20,2,160));
+				particle_system->set_emitting(true);
+				break;
+			case 2:
+			
+				num_particles = 20000;
+				particle_system->set_amount(num_particles);
+				particle_system->set_lifetime(100.0);
+				//particle_system->set_pre_process_time(10.0);
+				
+
+				// Set the texture image
+				shader_material->set_shader_parameter("texture_image", ResourceLoader::get_singleton()->load("res://assets/textures/flame4x4orig.png"));
+
+				// Set shader parameters
+				shader_material->set_shader_parameter("num_particles", num_particles);
+				shader_material->set_shader_parameter("curr_position", Vector3(50.0,0.0,100.0));
+
+				
+				particle_system->set_global_position(Vector3(50,0,50));
+				particle_system->set_emitting(true);
+				break;
 		}
 
 	}
@@ -275,15 +317,18 @@ void CustomScene3501::_process(double delta)
 				
 				UtilityFunctions::print("HIT");
 				numObjs -= 1;
+
+				//Change arrow to check mark and rotate
+				Ref<ArrayMesh> arrowMesh = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshCheck.res", "ArrayMesh");
+				arrows.get(i)->set_mesh(arrowMesh);
+				arrows.get(i)->set_rotation(Vector3(42.3,0,0));
+				arrows.get(i)->set_global_position(arrows.get(i)->get_global_position() - Vector3(0.0, 9.0, 0.0));
+				arrows.remove_at(i);
+
 				collectibles.remove_at(i);
 				check->queue_free();
-				
 			}
 
-			// BeaconObject* check = envObjects[i];
-			// if (check->check_collisions(main_camera->get_player()->get_position())){
-				
-			// }
 		}
 	}
 	else {
@@ -413,8 +458,11 @@ void CustomScene3501::setup_reference_boxes() {
 	
 	for (int index = 0; index < numObjs; index++) {
 		BeaconObject* obj_instance;
+		BeaconObject* marker_instance;
 
 		create_and_add_as_child(obj_instance, (vformat("Check_point_%d", index)), true); // Create the beacon as a node and add it to the scene tree  DB
+		create_and_add_as_child(marker_instance, (vformat("Arrow_%d", index)), true); // Create the beacon as a node and add it to the scene tree  DB
+
 
 		if (index == 0) { // Set the mesh of the first checkpoint as special to signify it as the first beacon that must be collected  DB
 			Ref<ArrayMesh> collectMesh = ResourceLoader::get_singleton()->load("res://assets/models/ship/Sketchfab_Scene_defaultMaterial20.res", "ArrayMesh");
@@ -423,6 +471,7 @@ void CustomScene3501::setup_reference_boxes() {
 			//box_material1->set_albedo(Color(1.0f, 1.0f, 0.0f, 1.0f));
 			//box1->surface_set_material(0, box_material1);
 			obj_instance->set_mesh(collectMesh);
+			obj_instance->set_scale(Vector3(3.0,3.0,3.0));
 		}
 		//Set the different collectibles to be different ship parts
 		else if (index == 1) { // Set all other beacon meshes to be normal  DB
@@ -435,30 +484,47 @@ void CustomScene3501::setup_reference_boxes() {
 			
 			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/Mesh01.res", "ArrayMesh");
 			obj_instance->set_mesh(collectMesh2);
+			obj_instance->set_scale(Vector3(3.0,3.0,3.0));
 		}
 		else if (index == 2){
 			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/Mesh02.res", "ArrayMesh");
 			obj_instance->set_mesh(collectMesh2);
+			obj_instance->set_scale(Vector3(3.0,3.0,3.0));
+
 		}
 		else if (index == 3){
 			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/Mesh03.res", "ArrayMesh");
 			obj_instance->set_mesh(collectMesh2);
+			obj_instance->set_scale(Vector3(3.0,3.0,3.0));
+
 		}
 		else if (index == 4){
 			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/Mesh04.res", "ArrayMesh");
 			obj_instance->set_mesh(collectMesh2);
+			obj_instance->set_scale(Vector3(3.0,3.0,3.0));
 		}
 		collectibles.push_back(obj_instance);  // Add each beacon to the collectibles collection  DB
+
+		//Create marker for each collectible
+		Ref<ArrayMesh> markerMesh = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshArrow.res", "ArrayMesh");
+		marker_instance->set_mesh(markerMesh);
+		marker_instance->set_rotation_degrees(Vector3(90,0,0));
+		marker_instance->set_scale(Vector3(0.5,0.5,2.0));
+		arrows.push_back(marker_instance);
 	}
 
 	//Spawn Non-Collectible Objects (envObjects)
 
 	for(int s = 0; s < numEnvObjs; s++){
 		CSGMesh3D* obj_instance;
+		RandomNumberGenerator* rng = memnew(RandomNumberGenerator); //added to allow for randomized positions
 
-		create_and_add_as_child(obj_instance, "SpaceShip", true);
+
+		
 
 		if (s == 0){
+			create_and_add_as_child(obj_instance, "SpaceShip", true);
+
 			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshShip.res", "ArrayMesh");
 			obj_instance->set_mesh(collectMesh2);
 			obj_instance->set_use_collision(true);
@@ -472,6 +538,48 @@ void CustomScene3501::setup_reference_boxes() {
 			obj_instance->set_material(mat);
 			
 		}
+
+		//Create the trees
+		else if (s < 400){
+			create_and_add_as_child(obj_instance, (vformat("Tree_%d", s-1)), true); // Create Trees
+
+			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshTree1.res", "ArrayMesh");
+			obj_instance->set_mesh(collectMesh2);
+			obj_instance->set_use_collision(true);
+			obj_instance->set_collision_priority(1);
+			
+			//Set texture
+			StandardMaterial3D* mat = memnew(StandardMaterial3D());
+			Ref<Texture2D> spaceshipTexture = ResourceLoader::get_singleton()->load("res://assets/textures/trees_texture.jpg");
+
+			mat->set_texture(BaseMaterial3D::TEXTURE_ALBEDO, spaceshipTexture);
+			obj_instance->set_material(mat);
+
+
+			obj_instance->set_scale(Vector3(4.0,4.0,4.0));
+		}
+
+		//Create crystals to place around the environment
+		else if(s > 400){
+			create_and_add_as_child(obj_instance, (vformat("Crystal_%d", s-400)), true); // Create Trees
+
+			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshCrystal.res", "ArrayMesh");
+			obj_instance->set_mesh(collectMesh2);
+			obj_instance->set_use_collision(true);
+			obj_instance->set_collision_priority(1);
+
+			//Set texture
+			StandardMaterial3D* mat = memnew(StandardMaterial3D());
+			Ref<Texture2D> spaceshipTexture = ResourceLoader::get_singleton()->load("res://assets/textures/trees_texture.jpg");
+
+			mat->set_texture(BaseMaterial3D::TEXTURE_ALBEDO, spaceshipTexture);
+			obj_instance->set_material(mat);
+
+			//Set Size
+			float x = rng->randf_range(0.6f, 1.0f);
+			obj_instance->set_scale(Vector3(0.01 * x,0.01 * x,0.01 * x));
+		}
+
 		envObjects.push_back(obj_instance);
 	}
 
@@ -479,7 +587,7 @@ void CustomScene3501::setup_reference_boxes() {
 	// NEW GRASS CREATION LOOP ------------------------------------------------------------------------------ They're created but their meshes aren't there
 	RandomNumberGenerator* rng = memnew(RandomNumberGenerator); //added to allow for randomized positions
 
-	for (int num = 0; num < 100; num++) {
+	for (int num = 0; num < 200; num++) {
 		Grass* grass_instance;
 
 		create_and_add_as_child(grass_instance, (vformat("Grass_%d", num)), true); // Create grass
@@ -498,19 +606,87 @@ void CustomScene3501::set_object_positions()
 	{
 		// x and y values are randomized, but to make this similar to a real collectibles the z value is consistently moving further and further back  DB
 		// ergo, the last checkpoint will be at the opposite end of the track as the first   DB
-		float x = rng->randf_range(0.0f, 20.0f); //test make back to big terrain
+		float x = rng->randf_range(30.0f, 170.0f); //test make back to big terrain
 		float y = rng->randf_range(0.0f, 3.0f);
-		float z = rng->randf_range(0.0f, 20.0f);
+		float z = rng->randf_range(30.0f, 170.0f);
 		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
 		collectibles.get(i)->set_global_position(Vector3(x, newY+0.1, z));
+		arrows.get(i)->set_global_position(Vector3(x, newY+13.0, z));
+		
 		//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
 	}
 
 	//Set environment object positions
 
 		//Spaceship positioning
-	envObjects.get(0)->set_global_position(Vector3(5,2,190));
-	envObjects.get(0)->set_global_rotation(Vector3(0,90,0));
+	envObjects.get(0)->set_global_position(Vector3(20,2,160));
+	envObjects.get(0)->set_global_rotation(Vector3(-89.5,0,0));
+
+		//Trees positioning
+
+	for (int i = 1; i < 100; i++){
+		
+		//Generate random positions for the trees
+		float x = rng->randf_range(190.0f, 200.0f);
+		float z = rng->randf_range(0.0f, 200.0f);
+
+		float y = rng->randf_range(12.0f, 17.0f);
+		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
+
+		
+		envObjects.get(i)->set_global_position(Vector3(x, newY + y, z));
+	}
+
+	for (int i = 100; i < 200; i++){
+		
+		//Generate random positions for the trees
+		float x = rng->randf_range(0.0f, 200.0f);
+		float z = rng->randf_range(190.0f, 200.0f);
+
+		float y = rng->randf_range(12.0f, 17.0f);
+		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
+
+		
+		envObjects.get(i)->set_global_position(Vector3(x, newY + y, z));
+	}
+
+	for (int i = 200; i < 300; i++){
+		
+		//Generate random positions for the trees
+		float x = rng->randf_range(0.0f, 200.0f);
+		float z = rng->randf_range(0.0f, 5.0f);
+
+		float y = rng->randf_range(12.0f, 17.0f);
+		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
+
+		
+		envObjects.get(i)->set_global_position(Vector3(x, newY + y, z));
+	}
+
+	for (int i = 300; i < 400; i++){
+		
+		//Generate random positions for the trees
+		float x = rng->randf_range(0.0f, 5.0f);
+		float z = rng->randf_range(0.0f, 200.0f);
+
+		float y = rng->randf_range(12.0f, 17.0f);
+		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
+
+		
+		envObjects.get(i)->set_global_position(Vector3(x, newY + y, z));
+	}
+
+	//Position the crystals
+	for(int i = 401; i < 450; i++){
+		//Generate random positions for the crystals
+		float x = rng->randf_range(15.0f, 185.0f);
+		float z = rng->randf_range(15.0f, 185.0f);
+		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
+
+		envObjects.get(i)->set_global_position(Vector3(x, newY, z));
+
+
+	}
 
 }
 
@@ -520,7 +696,7 @@ void CustomScene3501::set_grass_positions()
 		RandomNumberGenerator* rng = memnew(RandomNumberGenerator); //added to allow for randomized positions
 
 		// NEW GRASS POSITIONING USING HEIGHT MAP-------------------------------------------------------------------------
-		for (int g = 0; g < 100; g++) // Set all the checkpoint positions
+		for (int g = 0; g < 200; g++) // Set all the checkpoint positions
 		{
 			// x and y values are randomized, but to make this similar to a real collectibles the z value is consistently moving further and further back  DB
 			// ergo, the last checkpoint will be at the opposite end of the track as the first   DB
@@ -535,12 +711,13 @@ void CustomScene3501::set_grass_positions()
 
 }
 
+	//Range for out of bounds
 bool CustomScene3501::playerOOB()
 {
-	if (main_camera->get_player()->get_position().x < 6.0
-		|| main_camera->get_player()->get_position().x > 194.0 
-		|| main_camera->get_player()->get_position().z < 6.0 
-		|| main_camera->get_player()->get_position().z > 194.0) {
+	if (main_camera->get_player()->get_position().x < 15.0
+		|| main_camera->get_player()->get_position().x > 185.0 
+		|| main_camera->get_player()->get_position().z < 15.0 
+		|| main_camera->get_player()->get_position().z > 185.0) {
 		return true;
 	}
 	else {

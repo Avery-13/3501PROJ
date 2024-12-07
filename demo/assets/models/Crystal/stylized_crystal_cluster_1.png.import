@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://biat10bs33wp8"
+path.s3tc="res://.godot/imported/stylized_crystal_cluster_1.png-f02cf43780df98d78c0f1bd2d2920427.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "cfc84f9c8d6ef97cb2f066c4e52b406b"
+}
+
+[deps]
+
+source_file="res://assets/models/Crystal/stylized_crystal_cluster_1.png"
+dest_files=["res://.godot/imported/stylized_crystal_cluster_1.png-f02cf43780df98d78c0f1bd2d2920427.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0
