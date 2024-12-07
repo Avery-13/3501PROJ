@@ -79,7 +79,7 @@ private:
 
 
 	int numObjs = 5;
-	int numEnvObjs = 450;
+	int numEnvObjs = 467;
 	int collectCount;
 
 protected:

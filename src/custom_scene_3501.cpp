@@ -560,7 +560,7 @@ void CustomScene3501::setup_reference_boxes() {
 		}
 
 		//Create crystals to place around the environment
-		else if(s > 400){
+		else if(s > 400 && s < 450){
 			create_and_add_as_child(obj_instance, (vformat("Crystal_%d", s-400)), true); // Create Trees
 
 			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshCrystal.res", "ArrayMesh");
@@ -578,6 +578,50 @@ void CustomScene3501::setup_reference_boxes() {
 			//Set Size
 			float x = rng->randf_range(0.6f, 1.0f);
 			obj_instance->set_scale(Vector3(0.01 * x,0.01 * x,0.01 * x));
+		}
+
+		//Start creating parkour platforms
+			//Platform 1
+		else if (s > 450 && s <= 458){
+
+			//Create platform
+			create_and_add_as_child(obj_instance, (vformat("Platform_%d", s-450)), true);
+			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshBlock.res", "ArrayMesh");
+			obj_instance->set_mesh(collectMesh2);
+			obj_instance->set_use_collision(true);
+			obj_instance->set_collision_priority(1);
+
+			//Set texture
+			StandardMaterial3D* mat = memnew(StandardMaterial3D());
+			Ref<Texture2D> spaceshipTexture = ResourceLoader::get_singleton()->load("res://assets/textures/block_texture.jpg");
+			mat->set_texture(BaseMaterial3D::TEXTURE_ALBEDO, spaceshipTexture);
+			obj_instance->set_material(mat);
+
+			//Set Size
+			obj_instance->set_scale(Vector3(0.3,0.3,0.3));
+
+		}
+
+		//Start Creating Walls
+		else if (s > 458){
+
+			//Create Wall
+			create_and_add_as_child(obj_instance, (vformat("Wall_%d", s-458)), true);
+			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshWall.res", "ArrayMesh");
+			obj_instance->set_mesh(collectMesh2);
+			obj_instance->set_use_collision(true);
+			obj_instance->set_collision_priority(1);
+
+			//Set texture
+			StandardMaterial3D* mat = memnew(StandardMaterial3D());
+			Ref<Texture2D> spaceshipTexture = ResourceLoader::get_singleton()->load("res://assets/textures/block_texture.jpg");
+			mat->set_texture(BaseMaterial3D::TEXTURE_ALBEDO, spaceshipTexture);
+			obj_instance->set_material(mat);
+
+			//Set Size
+			obj_instance->set_scale(Vector3(20.0,20.0,20.0));
+
+
 		}
 
 		envObjects.push_back(obj_instance);
@@ -616,11 +660,20 @@ void CustomScene3501::set_object_positions()
 		//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
 	}
 
+	//Override positions of first 2 collectibles to be in fixed locations
+
+	collectibles.get(0)->set_global_position(envObjects.get(458)->get_global_position() + Vector3(0.0, 4.5, 0.0));
+	arrows.get(0)->set_global_position(envObjects.get(458)->get_global_position() + Vector3(0.0, 17.6, 0.0));
+
+	collectibles.get(1)->set_global_position(Vector3(121,0.0,75));
+	arrows.get(1)->set_global_position(collectibles.get(1)->get_global_position() + Vector3(0.0, 17.6, 0.0));
+
 	//Set environment object positions
 
 		//Spaceship positioning
 	envObjects.get(0)->set_global_position(Vector3(20,2,160));
 	envObjects.get(0)->set_global_rotation(Vector3(-89.5,0,0));
+	
 
 		//Trees positioning
 
@@ -687,6 +740,79 @@ void CustomScene3501::set_object_positions()
 
 
 	}
+
+	//Set Platforms Positions
+		//Platform 1
+	envObjects.get(451)->set_global_position(Vector3(18,-1.0,118));
+	envObjects.get(451)->set_global_rotation(Vector3(-89.5,0,0));
+
+		//Platform 2
+	envObjects.get(452)->set_global_position(envObjects.get(451)->get_global_position() + Vector3(5, 2, -19));
+	envObjects.get(452)->set_global_rotation(Vector3(-89.5,1,0));
+
+		//Platform 3
+	envObjects.get(453)->set_global_position(envObjects.get(452)->get_global_position() + Vector3(6.5, 3, -14));
+	envObjects.get(453)->set_global_rotation(Vector3(-89.5,2,0));
+
+		//Platform 4
+	envObjects.get(454)->set_global_position(envObjects.get(453)->get_global_position() + Vector3(24, 2, -6));
+	envObjects.get(454)->set_global_rotation(Vector3(-89.5,2,0));
+	envObjects.get(454)->set_scale(Vector3(0.3,1.5,0.3));
+
+		//Platform 5
+	envObjects.get(455)->set_global_position(envObjects.get(454)->get_global_position() + Vector3(10, 3, -7));
+	envObjects.get(455)->set_global_rotation(Vector3(-89.5,2,0));
+	envObjects.get(455)->set_scale(Vector3(0.3,0.3,0.3));
+
+		//Platform 6
+	envObjects.get(456)->set_global_position(envObjects.get(455)->get_global_position() + Vector3(-6, 3, 0));
+	envObjects.get(456)->set_global_rotation(Vector3(-89.5,2,0));
+	envObjects.get(456)->set_scale(Vector3(0.3,0.3,0.3));
+
+		//Platform 7
+	envObjects.get(457)->set_global_position(envObjects.get(456)->get_global_position() + Vector3(-4, 2, 9));
+	envObjects.get(457)->set_global_rotation(Vector3(-89.5,4,0));
+	envObjects.get(457)->set_scale(Vector3(0.3,0.3,0.3));
+
+		//Platform 8
+	envObjects.get(458)->set_global_position(envObjects.get(457)->get_global_position() + Vector3(7.5, 0.7, 11));
+	envObjects.get(458)->set_global_rotation(Vector3(-89.5,3,0));
+	envObjects.get(458)->set_scale(Vector3(0.5,0.5,0.7));
+
+	//Set Walls Positions
+
+		//Wall 1
+	envObjects.get(459)->set_global_position(Vector3(120,0.0,50));
+
+		//Wall 2
+	envObjects.get(460)->set_global_position(Vector3(120,0.0,60));
+
+		//Wall 3
+	envObjects.get(461)->set_global_position(Vector3(140,0.0,50));
+
+		//Wall 4
+	envObjects.get(462)->set_global_position(Vector3(140,0.0,60));
+	envObjects.get(462)->set_global_rotation_degrees(Vector3(0,90,0));
+	envObjects.get(462)->set_scale(Vector3(20,20,20));
+
+		//Wall 5
+	envObjects.get(463)->set_global_position(Vector3(160,0.0,60));
+	envObjects.get(463)->set_global_rotation_degrees(Vector3(0,90,0));
+	envObjects.get(463)->set_scale(Vector3(40,20,20));
+
+		//Wall 6
+	envObjects.get(464)->set_global_position(Vector3(130,0.0,90));
+	envObjects.get(464)->set_global_rotation_degrees(Vector3(0,0,0));
+	envObjects.get(464)->set_scale(Vector3(40,20,20));
+
+		//Wall 7
+	envObjects.get(465)->set_global_position(Vector3(120,0.0,80));
+	envObjects.get(465)->set_scale(Vector3(20,20,20));
+
+		//Wall 8
+	envObjects.get(466)->set_global_position(Vector3(118,0.0,77));
+	envObjects.get(466)->set_global_rotation_degrees(Vector3(0,90,0));
+	envObjects.get(466)->set_scale(Vector3(10,20,20));
 
 }
 
