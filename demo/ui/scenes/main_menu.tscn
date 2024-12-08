@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdo5ot2og1h1c"]
+[gd_scene load_steps=10 format=3 uid="uid://cdo5ot2og1h1c"]
 
 [ext_resource type="Texture2D" uid="uid://b5m1b7j6suak" path="res://assets/textures/Main_Menu/main_menu_bg.jpg" id="1_mc2w3"]
 [ext_resource type="Script" path="res://ui/scenes/main_menu.gd" id="1_ti820"]
 [ext_resource type="FontFile" uid="uid://ce1a8cm4ghcmh" path="res://assets/textures/Main_Menu/Horror.ttf" id="2_2cxcm"]
+[ext_resource type="AudioStream" uid="uid://cgnkbh2gxv7mh" path="res://assets/audio/menu_music.mp3" id="4_ypd6f"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_maduk"]
 texture = ExtResource("1_mc2w3")
@@ -82,5 +83,10 @@ theme_override_font_sizes/font_size = 64
 text = "DESOLATE SPACE"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ypd6f")
+autoplay = true
+bus = &"music"
 
 [connection signal="pressed" from="Button" to="." method="_on_start_pressed"]

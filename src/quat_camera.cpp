@@ -2,6 +2,7 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/input.hpp>
+#include <godot_cpp/classes/audio_stream_player.hpp>
 #include <godot_cpp/classes/input_event.hpp>
 #include <godot_cpp/classes/input_event_mouse_motion.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
@@ -66,6 +67,37 @@ void QuatCamera::_ready()
         UtilityFunctions::print("Head node not found or is not a Node3D.");
         return;
     }
+
+    // Find the Footsteps node
+    Node *footsteps_node = world_node->find_child("Footsteps", true, false);
+    if (!footsteps_node)
+    {
+        UtilityFunctions::print("Footsteps node not found.");
+        return;
+    }
+
+    footsteps_player = Object::cast_to<AudioStreamPlayer>(footsteps_node);
+    if (!footsteps_player)
+    {
+        UtilityFunctions::print("Footsteps node is not an AudioStreamPlayer.");
+    }
+
+    
+    // Find the jump node
+    Node *jump_node = world_node->find_child("Jump", true, false);
+    if (!footsteps_node)
+    {
+        UtilityFunctions::print("Footsteps node not found.");
+        return;
+    }
+
+    jump_player = Object::cast_to<AudioStreamPlayer>(jump_node);
+    if (!jump_player)
+    {
+        UtilityFunctions::print("Footsteps node is not an AudioStreamPlayer.");
+    }
+
+
 }
 void QuatCamera::_process(double delta){}
 
@@ -154,6 +186,12 @@ void QuatCamera::handle_jump()
         velocity.y = JUMP_VELOCITY;
 		player_body->set_velocity(velocity);
 		player_body->move_and_slide();
+
+        // Play jump sound if not already playing
+        if (jump_player && !jump_player->is_playing())
+        {
+            jump_player->play();
+        }
     }
 }
 
@@ -176,12 +214,30 @@ void QuatCamera::handle_movement(float delta)
 
         velocity.x = input_dir.x * current_speed;
         velocity.z = input_dir.z * current_speed;
+
+        // Play footstep sound if not already playing
+        if (footsteps_player && !footsteps_player->is_playing())
+        {
+            footsteps_player->play();
+        }
+
+        // Stop footstep sound if in the air
+        if (footsteps_player && footsteps_player->is_playing() && !player_body->is_on_floor())
+        {
+            footsteps_player->stop();
+        }
     }
     else
     {
         // Smooth deceleration when no input
         velocity.x = Math::lerp(velocity.x, 0.0f, delta * 7.0f);
         velocity.z = Math::lerp(velocity.z, 0.0f, delta * 7.0f);
+
+        // Stop footstep sound if not moving
+        if (footsteps_player && footsteps_player->is_playing())
+        {
+            footsteps_player->stop();
+        }
     }
 
     apply_gravity(delta);

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4cxnwn54sxpk"]
+[gd_scene load_steps=6 format=3 uid="uid://d4cxnwn54sxpk"]
 
 [ext_resource type="Texture2D" uid="uid://bqjtvoymyjjbd" path="res://assets/textures/Main_Menu/game_over_bg.jpg" id="1_72a0v"]
 [ext_resource type="Script" path="res://ui/scenes/game_over.gd" id="1_b3ss1"]
 [ext_resource type="FontFile" uid="uid://ce1a8cm4ghcmh" path="res://assets/textures/Main_Menu/Horror.ttf" id="2_ts0d1"]
+[ext_resource type="AudioStream" uid="uid://c2mteve8gpedn" path="res://assets/audio/menu_music - Copy.mp3" id="4_mm6uq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qxjac"]
 texture = ExtResource("1_72a0v")
@@ -70,6 +71,10 @@ offset_top = -24.76
 offset_right = 33.848
 offset_bottom = 25.24
 text = "Quit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mm6uq")
+bus = &"music"
 
 [connection signal="pressed" from="Replay?" to="." method="_on_replay_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

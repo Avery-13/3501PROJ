@@ -1,6 +1,7 @@
 #ifndef QUATCAMERA_H
 #define QUATCAMERA_H
 
+#include <godot_cpp/classes/audio_stream_player.hpp>
 #include <godot_cpp/classes/camera3d.hpp>
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/character_body3d.hpp>
@@ -33,6 +34,8 @@ namespace godot
 		float pitch_angle = 0.0f;
 
 		CharacterBody3D* player_body;
+		AudioStreamPlayer* footsteps_player;
+		AudioStreamPlayer* jump_player;
 		Node3D* head_node;
 		Node* player_node;
 		Node* world_node;

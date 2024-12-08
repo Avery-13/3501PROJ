@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://8id84qlsmewa" path="res://assets/models/Arm Model/new_arm.glb" id="1_4fkkf"]
 [ext_resource type="Script" path="res://scenes/player/arm.gd" id="2_vyffh"]
-[ext_resource type="AnimationLibrary" uid="uid://41wcetbqa3gx" path="res://scenes/player/animation_plauer.res" id="3_gblx7"]
+[ext_resource type="AnimationLibrary" path="res://scenes/player/animation_plauer.res" id="3_gblx7"]
 
 [node name="new_arm" instance=ExtResource("1_4fkkf")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
