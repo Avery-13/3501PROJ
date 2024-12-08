@@ -57,6 +57,7 @@ private:
 	Vector<BeaconObject*> arrows;
 
 	Vector<CSGMesh3D*> envObjects;
+	Vector<MeshInstance3D*> treeObjs; // for the OOB tree objects
 
 	Vector<ParticleSystem3501*> particle_systems;
 	Vector<Grass*> grass_collection;
@@ -79,7 +80,7 @@ private:
 
 
 	int numObjs = 5;
-	int numEnvObjs = 467;
+	int numEnvObjs = 67;
 	int collectCount;
 
 protected:
@@ -93,6 +94,8 @@ public:
 	void _process(double delta) override;
 	void _enter_tree ( ) override;
 	void _ready ( ) override;
+
+	void stopPlayer(); //stop the player from moving OOB
 
 	RandomNumberGenerator rng;
 

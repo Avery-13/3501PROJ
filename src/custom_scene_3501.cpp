@@ -335,13 +335,13 @@ void CustomScene3501::_process(double delta)
 		UtilityFunctions::print("DONE");
 	}
 	
-	if (playerOOB()) {
-		//screen_OOB_instance->show();
-		screen_quad_instance->show();
-		//UtilityFunctions::print("Close to edge");
-	} else {
-		screen_quad_instance->hide();
-	}
+if (playerOOB()) {
+        //screen_OOB_instance->show();
+        screen_quad_instance->show();
+        stopPlayer();
+    } else {
+        screen_quad_instance->hide();
+    }
 
 	if (collectCount >= 5) {
 		UtilityFunctions::print("All have been collected, ending now");
@@ -515,12 +515,32 @@ void CustomScene3501::setup_reference_boxes() {
 
 	//Spawn Non-Collectible Objects (envObjects)
 
+	for (int t = 0; t < 400; t++) {
+		MeshInstance3D* tree_instance;
+
+		create_and_add_as_child(tree_instance, (vformat("Tree_%d", t+1)), true); // Create Trees
+
+		Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshTree1.res", "ArrayMesh");
+		tree_instance->set_mesh(collectMesh2);
+		//obj_instance->set_use_collision(true);
+		//obj_instance->set_collision_priority(1);
+
+		//Set texture
+		StandardMaterial3D* mat = memnew(StandardMaterial3D());
+		Ref<Texture2D> spaceshipTexture = ResourceLoader::get_singleton()->load("res://assets/textures/trees_texture.jpg");
+
+		mat->set_texture(BaseMaterial3D::TEXTURE_ALBEDO, spaceshipTexture);
+		tree_instance->set_surface_override_material(0, mat);
+		//tree_instance->set_material(mat);
+
+
+		tree_instance->set_scale(Vector3(4.0, 4.0, 4.0));
+	
+		treeObjs.push_back(tree_instance);
+	}
+
 	for(int s = 0; s < numEnvObjs; s++){
 		CSGMesh3D* obj_instance;
-		RandomNumberGenerator* rng = memnew(RandomNumberGenerator); //added to allow for randomized positions
-
-
-		
 
 		if (s == 0){
 			create_and_add_as_child(obj_instance, "SpaceShip", true);
@@ -539,29 +559,9 @@ void CustomScene3501::setup_reference_boxes() {
 			
 		}
 
-		//Create the trees
-		else if (s < 400){
-			create_and_add_as_child(obj_instance, (vformat("Tree_%d", s-1)), true); // Create Trees
-
-			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshTree1.res", "ArrayMesh");
-			obj_instance->set_mesh(collectMesh2);
-			obj_instance->set_use_collision(true);
-			obj_instance->set_collision_priority(1);
-			
-			//Set texture
-			StandardMaterial3D* mat = memnew(StandardMaterial3D());
-			Ref<Texture2D> spaceshipTexture = ResourceLoader::get_singleton()->load("res://assets/textures/trees_texture.jpg");
-
-			mat->set_texture(BaseMaterial3D::TEXTURE_ALBEDO, spaceshipTexture);
-			obj_instance->set_material(mat);
-
-
-			obj_instance->set_scale(Vector3(4.0,4.0,4.0));
-		}
-
 		//Create crystals to place around the environment
-		else if(s > 400 && s < 450){
-			create_and_add_as_child(obj_instance, (vformat("Crystal_%d", s-400)), true); // Create Trees
+		else if(s > 0 && s <= 50){ 
+			create_and_add_as_child(obj_instance, (vformat("Crystal_%d", s-1)), true); // Create crystals
 
 			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshCrystal.res", "ArrayMesh");
 			obj_instance->set_mesh(collectMesh2);
@@ -576,16 +576,16 @@ void CustomScene3501::setup_reference_boxes() {
 			obj_instance->set_material(mat);
 
 			//Set Size
-			float x = rng->randf_range(0.6f, 1.0f);
+			float x = rng.randf_range(0.6f, 1.0f);
 			obj_instance->set_scale(Vector3(0.01 * x,0.01 * x,0.01 * x));
 		}
 
 		//Start creating parkour platforms
 			//Platform 1
-		else if (s > 450 && s <= 458){
+		else if (s > 50 && s <= 58){
 
 			//Create platform
-			create_and_add_as_child(obj_instance, (vformat("Platform_%d", s-450)), true);
+			create_and_add_as_child(obj_instance, (vformat("Platform_%d", s-50)), true);
 			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshBlock.res", "ArrayMesh");
 			obj_instance->set_mesh(collectMesh2);
 			obj_instance->set_use_collision(true);
@@ -603,10 +603,10 @@ void CustomScene3501::setup_reference_boxes() {
 		}
 
 		//Start Creating Walls
-		else if (s > 458){
+		else if (s > 58){
 
 			//Create Wall
-			create_and_add_as_child(obj_instance, (vformat("Wall_%d", s-458)), true);
+			create_and_add_as_child(obj_instance, (vformat("Wall_%d", s-58)), true);
 			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshWall.res", "ArrayMesh");
 			obj_instance->set_mesh(collectMesh2);
 			obj_instance->set_use_collision(true);
@@ -629,7 +629,6 @@ void CustomScene3501::setup_reference_boxes() {
 
 
 	// NEW GRASS CREATION LOOP ------------------------------------------------------------------------------ They're created but their meshes aren't there
-	RandomNumberGenerator* rng = memnew(RandomNumberGenerator); //added to allow for randomized positions
 
 	for (int num = 0; num < 200; num++) {
 		Grass* grass_instance;
@@ -644,15 +643,14 @@ void CustomScene3501::setup_reference_boxes() {
 // Set all the object positions
 void CustomScene3501::set_object_positions()
 {
-	RandomNumberGenerator* rng = memnew(RandomNumberGenerator); //added to allow for randomized positions
 
 	for (int i = 0; i < numObjs; i++) // Set all the checkpoint positions
 	{
 		// x and y values are randomized, but to make this similar to a real collectibles the z value is consistently moving further and further back  DB
 		// ergo, the last checkpoint will be at the opposite end of the track as the first   DB
-		float x = rng->randf_range(30.0f, 170.0f); //test make back to big terrain
-		float y = rng->randf_range(0.0f, 3.0f);
-		float z = rng->randf_range(30.0f, 170.0f);
+		float x = rng.randf_range(30.0f, 170.0f); //test make back to big terrain
+		float y = rng.randf_range(0.0f, 3.0f);
+		float z = rng.randf_range(30.0f, 170.0f);
 		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
 		collectibles.get(i)->set_global_position(Vector3(x, newY+0.1, z));
 		arrows.get(i)->set_global_position(Vector3(x, newY+13.0, z));
@@ -662,8 +660,8 @@ void CustomScene3501::set_object_positions()
 
 	//Override positions of first 2 collectibles to be in fixed locations
 
-	collectibles.get(0)->set_global_position(envObjects.get(458)->get_global_position() + Vector3(0.0, 4.5, 0.0));
-	arrows.get(0)->set_global_position(envObjects.get(458)->get_global_position() + Vector3(0.0, 17.6, 0.0));
+	collectibles.get(0)->set_global_position(envObjects.get(58)->get_global_position() + Vector3(0.0, 4.5, 0.0));
+	arrows.get(0)->set_global_position(envObjects.get(58)->get_global_position() + Vector3(0.0, 17.6, 0.0));
 
 	collectibles.get(1)->set_global_position(Vector3(121,0.0,75));
 	arrows.get(1)->set_global_position(collectibles.get(1)->get_global_position() + Vector3(0.0, 17.6, 0.0));
@@ -677,63 +675,63 @@ void CustomScene3501::set_object_positions()
 
 		//Trees positioning
 
-	for (int i = 1; i < 100; i++){
+	for (int i = 0; i < 100; i++){
 		
 		//Generate random positions for the trees
-		float x = rng->randf_range(190.0f, 200.0f);
-		float z = rng->randf_range(0.0f, 200.0f);
+		float x = rng.randf_range(190.0f, 200.0f);
+		float z = rng.randf_range(0.0f, 200.0f);
 
-		float y = rng->randf_range(12.0f, 17.0f);
+		float y = rng.randf_range(12.0f, 17.0f);
 		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
 
 		
-		envObjects.get(i)->set_global_position(Vector3(x, newY + y, z));
+		treeObjs.get(i)->set_global_position(Vector3(x, newY + y, z));
 	}
 
 	for (int i = 100; i < 200; i++){
 		
 		//Generate random positions for the trees
-		float x = rng->randf_range(0.0f, 200.0f);
-		float z = rng->randf_range(190.0f, 200.0f);
+		float x = rng.randf_range(0.0f, 200.0f);
+		float z = rng.randf_range(190.0f, 200.0f);
 
-		float y = rng->randf_range(12.0f, 17.0f);
+		float y = rng.randf_range(12.0f, 17.0f);
 		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
 
 		
-		envObjects.get(i)->set_global_position(Vector3(x, newY + y, z));
+		treeObjs.get(i)->set_global_position(Vector3(x, newY + y, z));
 	}
 
 	for (int i = 200; i < 300; i++){
 		
 		//Generate random positions for the trees
-		float x = rng->randf_range(0.0f, 200.0f);
-		float z = rng->randf_range(0.0f, 5.0f);
+		float x = rng.randf_range(0.0f, 200.0f);
+		float z = rng.randf_range(0.0f, 5.0f);
 
-		float y = rng->randf_range(12.0f, 17.0f);
+		float y = rng.randf_range(12.0f, 17.0f);
 		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
 
 		
-		envObjects.get(i)->set_global_position(Vector3(x, newY + y, z));
+		treeObjs.get(i)->set_global_position(Vector3(x, newY + y, z));
 	}
 
 	for (int i = 300; i < 400; i++){
 		
 		//Generate random positions for the trees
-		float x = rng->randf_range(0.0f, 5.0f);
-		float z = rng->randf_range(0.0f, 200.0f);
+		float x = rng.randf_range(0.0f, 5.0f);
+		float z = rng.randf_range(0.0f, 200.0f);
 
-		float y = rng->randf_range(12.0f, 17.0f);
+		float y = rng.randf_range(12.0f, 17.0f);
 		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
 
 		
-		envObjects.get(i)->set_global_position(Vector3(x, newY + y, z));
+		treeObjs.get(i)->set_global_position(Vector3(x, newY + y, z));
 	}
 
 	//Position the crystals
-	for(int i = 401; i < 450; i++){
+	for(int i = 1; i < 50; i++){
 		//Generate random positions for the crystals
-		float x = rng->randf_range(15.0f, 185.0f);
-		float z = rng->randf_range(15.0f, 185.0f);
+		float x = rng.randf_range(15.0f, 185.0f);
+		float z = rng.randf_range(15.0f, 185.0f);
 		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
 
 		envObjects.get(i)->set_global_position(Vector3(x, newY, z));
@@ -743,91 +741,90 @@ void CustomScene3501::set_object_positions()
 
 	//Set Platforms Positions
 		//Platform 1
-	envObjects.get(451)->set_global_position(Vector3(18,-1.0,118));
-	envObjects.get(451)->set_global_rotation(Vector3(-89.5,0,0));
+	envObjects.get(51)->set_global_position(Vector3(18,-1.0,118));
+	envObjects.get(51)->set_global_rotation(Vector3(-89.5,0,0));
 
 		//Platform 2
-	envObjects.get(452)->set_global_position(envObjects.get(451)->get_global_position() + Vector3(5, 2, -19));
-	envObjects.get(452)->set_global_rotation(Vector3(-89.5,1,0));
+	envObjects.get(52)->set_global_position(envObjects.get(51)->get_global_position() + Vector3(5, 2, -19));
+	envObjects.get(52)->set_global_rotation(Vector3(-89.5,1,0));
 
 		//Platform 3
-	envObjects.get(453)->set_global_position(envObjects.get(452)->get_global_position() + Vector3(6.5, 3, -14));
-	envObjects.get(453)->set_global_rotation(Vector3(-89.5,2,0));
+	envObjects.get(53)->set_global_position(envObjects.get(52)->get_global_position() + Vector3(6.5, 3, -14));
+	envObjects.get(53)->set_global_rotation(Vector3(-89.5,2,0));
 
 		//Platform 4
-	envObjects.get(454)->set_global_position(envObjects.get(453)->get_global_position() + Vector3(24, 2, -6));
-	envObjects.get(454)->set_global_rotation(Vector3(-89.5,2,0));
-	envObjects.get(454)->set_scale(Vector3(0.3,1.5,0.3));
+	envObjects.get(54)->set_global_position(envObjects.get(53)->get_global_position() + Vector3(24, 2, -6));
+	envObjects.get(54)->set_global_rotation(Vector3(-89.5,2,0));
+	envObjects.get(54)->set_scale(Vector3(0.3,1.5,0.3));
 
 		//Platform 5
-	envObjects.get(455)->set_global_position(envObjects.get(454)->get_global_position() + Vector3(10, 3, -7));
-	envObjects.get(455)->set_global_rotation(Vector3(-89.5,2,0));
-	envObjects.get(455)->set_scale(Vector3(0.3,0.3,0.3));
+	envObjects.get(55)->set_global_position(envObjects.get(54)->get_global_position() + Vector3(10, 3, -7));
+	envObjects.get(55)->set_global_rotation(Vector3(-89.5,2,0));
+	envObjects.get(55)->set_scale(Vector3(0.3,0.3,0.3));
 
 		//Platform 6
-	envObjects.get(456)->set_global_position(envObjects.get(455)->get_global_position() + Vector3(-6, 3, 0));
-	envObjects.get(456)->set_global_rotation(Vector3(-89.5,2,0));
-	envObjects.get(456)->set_scale(Vector3(0.3,0.3,0.3));
+	envObjects.get(56)->set_global_position(envObjects.get(55)->get_global_position() + Vector3(-6, 3, 0));
+	envObjects.get(56)->set_global_rotation(Vector3(-89.5,2,0));
+	envObjects.get(56)->set_scale(Vector3(0.3,0.3,0.3));
 
 		//Platform 7
-	envObjects.get(457)->set_global_position(envObjects.get(456)->get_global_position() + Vector3(-4, 2, 9));
-	envObjects.get(457)->set_global_rotation(Vector3(-89.5,4,0));
-	envObjects.get(457)->set_scale(Vector3(0.3,0.3,0.3));
+	envObjects.get(57)->set_global_position(envObjects.get(56)->get_global_position() + Vector3(-4, 2, 9));
+	envObjects.get(57)->set_global_rotation(Vector3(-89.5,4,0));
+	envObjects.get(57)->set_scale(Vector3(0.3,0.3,0.3));
 
 		//Platform 8
-	envObjects.get(458)->set_global_position(envObjects.get(457)->get_global_position() + Vector3(7.5, 0.7, 11));
-	envObjects.get(458)->set_global_rotation(Vector3(-89.5,3,0));
-	envObjects.get(458)->set_scale(Vector3(0.5,0.5,0.7));
+	envObjects.get(58)->set_global_position(envObjects.get(57)->get_global_position() + Vector3(7.5, 0.7, 11));
+	envObjects.get(58)->set_global_rotation(Vector3(-89.5,3,0));
+	envObjects.get(58)->set_scale(Vector3(0.5,0.5,0.7));
 
 	//Set Walls Positions
 
 		//Wall 1
-	envObjects.get(459)->set_global_position(Vector3(120,0.0,50));
+	envObjects.get(59)->set_global_position(Vector3(120,0.0,50));
 
 		//Wall 2
-	envObjects.get(460)->set_global_position(Vector3(120,0.0,60));
+	envObjects.get(60)->set_global_position(Vector3(120,0.0,60));
 
 		//Wall 3
-	envObjects.get(461)->set_global_position(Vector3(140,0.0,50));
+	envObjects.get(61)->set_global_position(Vector3(140,0.0,50));
 
 		//Wall 4
-	envObjects.get(462)->set_global_position(Vector3(140,0.0,60));
-	envObjects.get(462)->set_global_rotation_degrees(Vector3(0,90,0));
-	envObjects.get(462)->set_scale(Vector3(20,20,20));
+	envObjects.get(62)->set_global_position(Vector3(140,0.0,60));
+	envObjects.get(62)->set_global_rotation_degrees(Vector3(0,90,0));
+	envObjects.get(62)->set_scale(Vector3(20,20,20));
 
 		//Wall 5
-	envObjects.get(463)->set_global_position(Vector3(160,0.0,60));
-	envObjects.get(463)->set_global_rotation_degrees(Vector3(0,90,0));
-	envObjects.get(463)->set_scale(Vector3(40,20,20));
+	envObjects.get(63)->set_global_position(Vector3(160,0.0,60));
+	envObjects.get(63)->set_global_rotation_degrees(Vector3(0,90,0));
+	envObjects.get(63)->set_scale(Vector3(40,20,20));
 
 		//Wall 6
-	envObjects.get(464)->set_global_position(Vector3(130,0.0,90));
-	envObjects.get(464)->set_global_rotation_degrees(Vector3(0,0,0));
-	envObjects.get(464)->set_scale(Vector3(40,20,20));
+	envObjects.get(64)->set_global_position(Vector3(130,0.0,90));
+	envObjects.get(64)->set_global_rotation_degrees(Vector3(0,0,0));
+	envObjects.get(64)->set_scale(Vector3(40,20,20));
 
 		//Wall 7
-	envObjects.get(465)->set_global_position(Vector3(120,0.0,80));
-	envObjects.get(465)->set_scale(Vector3(20,20,20));
+	envObjects.get(65)->set_global_position(Vector3(120,0.0,80));
+	envObjects.get(65)->set_scale(Vector3(20,20,20));
 
 		//Wall 8
-	envObjects.get(466)->set_global_position(Vector3(118,0.0,77));
-	envObjects.get(466)->set_global_rotation_degrees(Vector3(0,90,0));
-	envObjects.get(466)->set_scale(Vector3(10,20,20));
+	envObjects.get(66)->set_global_position(Vector3(118,0.0,77));
+	envObjects.get(66)->set_global_rotation_degrees(Vector3(0,90,0));
+	envObjects.get(66)->set_scale(Vector3(10,20,20));
 
 }
 
+
 void CustomScene3501::set_grass_positions()
 {
-
-		RandomNumberGenerator* rng = memnew(RandomNumberGenerator); //added to allow for randomized positions
 
 		// NEW GRASS POSITIONING USING HEIGHT MAP-------------------------------------------------------------------------
 		for (int g = 0; g < 200; g++) // Set all the checkpoint positions
 		{
 			// x and y values are randomized, but to make this similar to a real collectibles the z value is consistently moving further and further back  DB
 			// ergo, the last checkpoint will be at the opposite end of the track as the first   DB
-			float x = rng->randf_range(0.0f, 200.0f);
-			float z = rng->randf_range(0.0f, 200.0f);
+			float x = rng.randf_range(0.0f, 200.0f);
+			float z = rng.randf_range(0.0f, 200.0f);
 			float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
 			grass_collection.get(g)->set_global_position(Vector3(x, newY + 0.1, z));
 			//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
@@ -849,6 +846,23 @@ bool CustomScene3501::playerOOB()
 	else {
 		return false;
 	}
+}
+
+void CustomScene3501::stopPlayer() // Stops the player from moving further our of bounds in the level
+{
+    if (main_camera->get_player()->get_position().x < 13.0) {
+        main_camera->get_player()->set_position(Vector3(13.0, main_camera->get_player()->get_position().y, main_camera->get_player()->get_position().z));
+    }
+    if (main_camera->get_player()->get_position().x > 187.0) {
+        main_camera->get_player()->set_position(Vector3(187.0, main_camera->get_player()->get_position().y, main_camera->get_player()->get_position().z));
+    }
+    if (main_camera->get_player()->get_position().z < 13.0) {
+        main_camera->get_player()->set_position(Vector3(main_camera->get_player()->get_position().x, main_camera->get_player()->get_position().y, 13.0));
+    }
+    if (main_camera->get_player()->get_position().z > 187.0) {
+        main_camera->get_player()->set_position(Vector3(main_camera->get_player()->get_position().x, main_camera->get_player()->get_position().y, 187.0));
+    }
+
 }
 
 /*
