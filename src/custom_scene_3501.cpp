@@ -237,10 +237,10 @@ void CustomScene3501::_ready()
 			// if you need anything to be different, do it here!
 			case 0: 
 				// Setup for Firefly Swarm
-				num_particles = 1000;
+				num_particles = 200;
 				particle_system->set_amount(num_particles);
 				particle_system->set_lifetime(10.0);
-				//particle_system->set_pre_process_time(10.0);
+				particle_system->set_pre_process_time(10.0);
 				
 
 				// Set the texture image
