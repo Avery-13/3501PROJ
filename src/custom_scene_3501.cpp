@@ -20,22 +20,16 @@ CustomScene3501::~CustomScene3501()
 
 void CustomScene3501::_enter_tree()
 {
-
 	if (DEBUG)
 		UtilityFunctions::print("Enter Tree - CustomScene3501.");
-	//create_and_add_as_child(sands, "New Sand Dunes", false);
-	setup_reference_boxes();
 
+	setup_reference_boxes();
 
 	// Add the Firefly Swarm particle system
     create_particle_system("Firefly Swarm", "firefly");
 
 	// Add the Thruster particle system
     create_particle_system("Thruster", "thruster");
-
-	// // Add the collectible indicator particle system
-	// create_particle_system("Indicator 1", "indicator");
-
 
 
     // Traverse up the tree to find the parent (World)
@@ -101,26 +95,6 @@ void CustomScene3501::_enter_tree()
 			screen_quad_instance->set_mesh(quad_mesh);
 			screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
 
-			/*
-			screen_OOB_instance = memnew(MeshInstance3D);
-			screen_OOB_instance->set_name("Damaged Vision");
-			main_camera->add_child(screen_OOB_instance);
-			screen_OOB_instance->set_owner(get_tree()->get_edited_scene_root());
-			// Setup the screen-space shader
-			QuadMesh* quad_mesh2 = memnew(QuadMesh);
-			quad_mesh2->set_size(Vector2(2, 2)); // this will cover the whole screen
-			quad_mesh2->set_flip_faces(true);
-
-			OOB_space_shader_material = memnew(ShaderMaterial);
-			// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
-			Ref<Shader> shader1 = ResourceLoader::get_singleton()->load("res://assets/shaders/effect2.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
-			OOB_space_shader_material->set_shader(shader1);
-			quad_mesh2->surface_set_material(0, OOB_space_shader_material);
-			screen_OOB_instance->set_mesh(quad_mesh2);
-			screen_OOB_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
-			*/
-			
-
 		}
 		
 	}else{
@@ -149,54 +123,17 @@ void CustomScene3501::_enter_tree()
 		screen_quad_instance->set_mesh(quad_mesh);
 		screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
 
-		/*
-		screen_OOB_instance = memnew(MeshInstance3D);
-		screen_OOB_instance->set_name("Damaged Vision");
-		main_camera->add_child(screen_OOB_instance);
-		screen_OOB_instance->set_owner(get_tree()->get_edited_scene_root());
-		// Setup the screen-space shader
-		QuadMesh* quad_mesh2 = memnew(QuadMesh);
-		quad_mesh2->set_size(Vector2(2, 2)); // this will cover the whole screen
-		quad_mesh2->set_flip_faces(true);
-
-		OOB_space_shader_material = memnew(ShaderMaterial);
-		// make sure to tell your TA in your README how they should test different shaders; maybe it's to change the string below, maybe it's some other way of your own design
-		Ref<Shader> shader1 = ResourceLoader::get_singleton()->load("res://assets/shaders/effect2.gdshader", "Shader"); // I've set it to corrugated for the start of this assignment  DB
-		OOB_space_shader_material->set_shader(shader1);
-		quad_mesh2->surface_set_material(0, OOB_space_shader_material);
-		screen_OOB_instance->set_mesh(quad_mesh2);
-		screen_OOB_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
-		
-		
-		*/
-		
-
 	}
+
 	Node* existing_terrain = find_child("Sand Dunes", false, false);
 	if (existing_terrain)
 	{
 		sands = Object::cast_to<TerrainInstance>(existing_terrain);
 		UtilityFunctions::print("Sand Dunes already exists and is assigned to sands.");
-		
 	}
 	else {
-
 		create_and_add_as_child(sands, "Sand Dunes", false);
-		
-
 	}
-
-
-	//create_and_add_as_child<TerrainInstance>(sands, "Test terrain", false);
-
-	// The vectors are brand new every time you run the simulation or reload the project.
-	
-
-
-
-
-
-
 }
 
 void CustomScene3501::_ready()
@@ -219,7 +156,6 @@ void CustomScene3501::_ready()
 	screen_quad_instance->hide();
 
 
-	UtilityFunctions::print(particle_systems.size());
 	//particle set up
 	for(int index = 0; index < particle_systems.size(); index++){
 		// the current particle system we are setting up
@@ -241,7 +177,6 @@ void CustomScene3501::_ready()
 				particle_system->set_amount(num_particles);
 				particle_system->set_lifetime(10.0);
 				particle_system->set_pre_process_time(10.0);
-				
 
 				// Set the texture image
 				shader_material->set_shader_parameter("texture_image", ResourceLoader::get_singleton()->load("res://assets/textures/flame4x4orig.png"));
@@ -295,9 +230,6 @@ void CustomScene3501::_ready()
 		}
 
 	}
-	
-
-	
 
 }
 
@@ -467,21 +399,12 @@ void CustomScene3501::setup_reference_boxes() {
 		if (index == 0) { // Set the mesh of the first checkpoint as special to signify it as the first beacon that must be collected  DB
 			Ref<ArrayMesh> collectMesh = ResourceLoader::get_singleton()->load("res://assets/models/ship/Sketchfab_Scene_defaultMaterial20.res", "ArrayMesh");
 			
-			//StandardMaterial3D* box_material1 = memnew(StandardMaterial3D);
-			//box_material1->set_albedo(Color(1.0f, 1.0f, 0.0f, 1.0f));
-			//box1->surface_set_material(0, box_material1);
 			obj_instance->set_mesh(collectMesh);
 			obj_instance->set_scale(Vector3(3.0,3.0,3.0));
 		}
 		//Set the different collectibles to be different ship parts
 		else if (index == 1) { // Set all other beacon meshes to be normal  DB
-			// BoxMesh* box = memnew(BoxMesh);
-			// box->set_size(Vector3(1.0f, 2.0f, 1.0f));
-			// StandardMaterial3D* box_material = memnew(StandardMaterial3D);
-			// box_material->set_albedo(Color(1.0f, 1.0f, 1.0f, 1.0f));
-			// box->surface_set_material(0, box_material);
 
-			
 			Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/Mesh01.res", "ArrayMesh");
 			obj_instance->set_mesh(collectMesh2);
 			obj_instance->set_scale(Vector3(3.0,3.0,3.0));
@@ -513,8 +436,6 @@ void CustomScene3501::setup_reference_boxes() {
 		arrows.push_back(marker_instance);
 	}
 
-	//Spawn Non-Collectible Objects (envObjects)
-
 	for (int t = 0; t < 400; t++) {
 		MeshInstance3D* tree_instance;
 
@@ -522,8 +443,6 @@ void CustomScene3501::setup_reference_boxes() {
 
 		Ref<ArrayMesh> collectMesh2 = ResourceLoader::get_singleton()->load("res://assets/Environment/Meshes/MeshTree1.res", "ArrayMesh");
 		tree_instance->set_mesh(collectMesh2);
-		//obj_instance->set_use_collision(true);
-		//obj_instance->set_collision_priority(1);
 
 		//Set texture
 		StandardMaterial3D* mat = memnew(StandardMaterial3D());
@@ -531,8 +450,6 @@ void CustomScene3501::setup_reference_boxes() {
 
 		mat->set_texture(BaseMaterial3D::TEXTURE_ALBEDO, spaceshipTexture);
 		tree_instance->set_surface_override_material(0, mat);
-		//tree_instance->set_material(mat);
-
 
 		tree_instance->set_scale(Vector3(4.0, 4.0, 4.0));
 	
@@ -654,8 +571,6 @@ void CustomScene3501::set_object_positions()
 		float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
 		collectibles.get(i)->set_global_position(Vector3(x, newY+0.1, z));
 		arrows.get(i)->set_global_position(Vector3(x, newY+13.0, z));
-		
-		//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
 	}
 
 	//Override positions of first 2 collectibles to be in fixed locations
@@ -827,7 +742,6 @@ void CustomScene3501::set_grass_positions()
 			float z = rng.randf_range(0.0f, 200.0f);
 			float newY = sands->get_terrain_mesh()->get_height_map().get(x).get(z);
 			grass_collection.get(g)->set_global_position(Vector3(x, newY + 0.1, z));
-			//powers.get(i)->set_global_position(Vector3(x-5.0, y, z-5.0)); //a power up is set next to every checkpoint
 		}
 
 	

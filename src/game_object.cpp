@@ -19,7 +19,6 @@ bool GameObject::check_collisions(Vector3 in)
 {
 	Vector3 me = this->get_position();
 	float distance = me.distance_to(in);
-	//UtilityFunctions::print(distance);
 	if (distance < 2.0) {
 		return true;
 	}

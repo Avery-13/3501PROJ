@@ -49,7 +49,6 @@ Transform3D HierarchyPart::get_transformation_matrix(){
 	Transform3D orbit = Transform3D(orbit_rotation).translated(joint_position); // TODO QUESTION 1: finish implementing orbits
 	Transform3D rotation = Transform3D(local_rotation);
 	Transform3D scaling = Transform3D().scaled(scale);
-	// UtilityFunctions::print(get_name()); 
 
 	Transform3D local_transform = translation * orbit * rotation * scaling;
 
@@ -61,7 +60,6 @@ Transform3D HierarchyPart::get_transformation_matrix_without_scaling(){
 	Transform3D translation = Transform3D().translated(local_position);
 	Transform3D orbit = Transform3D(orbit_rotation).translated(joint_position); // TODO QUESTION 1: finish implementing orbits	
 	Transform3D rotation = Transform3D(local_rotation);
-	// UtilityFunctions::print(get_name()); 
 
 	Transform3D local_transform = translation * orbit * rotation;
 

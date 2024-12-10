@@ -14,7 +14,6 @@ void BeaconObject::_bind_methods() {}
 
 BeaconObject::BeaconObject() : GameObject() {
 	time_passed = 0.0;
-	//set_mesh(m);
 }
 
 void BeaconObject::_enter_tree() {

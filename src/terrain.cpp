@@ -66,7 +66,6 @@ void TerrainMesh::setup_terrain(float total_height, float circle_radius, int gri
 	noisyBoy->TYPE_SIMPLEX_SMOOTH;
 	UtilityFunctions::print(noisyBoy->get_noise_2dv(Vector2(1.0, 1.0)));
 
-	//float** test_noise = generateNoise();
 	currTest = 0.0;
 	for (int i = 0; i < xDimension; i++) { // large loop   
 		theta = 2.0 * Math_PI * i / xDimension; // loop sample (angle theta)
@@ -82,10 +81,8 @@ void TerrainMesh::setup_terrain(float total_height, float circle_radius, int gri
 				height += currTest;
 			}
 
-
-			//currOct = test_noise()
 			phi = 2.0 * Math_PI * j / zDimension; // circle sample (angle phi)
-			//
+			
 			// Define position, normal and color of vertex
 			vertex_position = Vector3(float(i), height, float(j)); //now the vertex position uses the radius calculated for this height DB
 			vertex_normal = vertex_position;

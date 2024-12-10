@@ -14,7 +14,6 @@ void EnvironObject::_bind_methods() {}
 
 EnvironObject::EnvironObject() : CSGMesh3D() {
 	time_passed = 0.0;
-	//set_mesh(m);
 }
 
 void EnvironObject::_enter_tree() {
