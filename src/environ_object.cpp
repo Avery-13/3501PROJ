@@ -6,7 +6,6 @@
 #include <godot_cpp/classes/engine.hpp>
 #include "environ_object.h"
 
-// This class remains mostly the same as example_derived, however is defined to fit the beacon/checkpoint object needed  DB
 
 using namespace godot;
 
