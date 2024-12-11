@@ -11,11 +11,8 @@
 #include <godot_cpp/variant/vector3.hpp>
 #include <godot_cpp/classes/csg_mesh3d.hpp>
 
-
-// included proper header for use in this derived class  DB
 #include "game_object.h"
 
-// This is a repurposed copy of the "example_derived_class" that will act as the checkpoints in this game  DB
 namespace godot {
 	class EnvironObject : public CSGMesh3D {
 		GDCLASS(EnvironObject, CSGMesh3D);

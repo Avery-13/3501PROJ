@@ -242,9 +242,6 @@ void QuatCamera::handle_movement(float delta)
 
     apply_gravity(delta);
 
-    // Debug velocity
-	//UtilityFunctions::print("Velocity after gravity and jump: ", velocity);
-
     // Set and apply velocity
     player_body->set_velocity(velocity);
     player_body->move_and_slide();
@@ -256,7 +253,6 @@ Vector3 QuatCamera::get_input_direction()
         return Vector3();
 
     Vector2 input_vector = Input::get_singleton()->get_vector("ui_left", "ui_right", "ui_up", "ui_down");
-    //UtilityFunctions::print("Input vector: ", input_vector);
 
     Transform3D head_transform = head_node->get_global_transform();
     Vector3 forward = head_transform.basis.get_column(Vector3::AXIS_Z); // Forward direction
