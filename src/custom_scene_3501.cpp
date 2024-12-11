@@ -170,7 +170,7 @@ void CustomScene3501::_ready()
 		ShaderMaterial* process_material = dynamic_cast<ShaderMaterial*>(*particle_system->get_process_material());
 		switch(index){
 			// if you need anything to be different, do it here!
-			case 0: 
+			case 0: {
 				// Setup for Firefly Swarm
 				num_particles = 200;
 				particle_system->set_amount(num_particles);
@@ -189,7 +189,12 @@ void CustomScene3501::_ready()
 
 				particle_system->set_global_position(Vector3(80.0f, 0, 20.0f));
 				particle_system->set_emitting(true);
-				break;
+
+				AABB box(Vector3(-80, 0, -20), Vector3(200, 30, 200));
+				particle_system->set_visibility_aabb(box);
+				break;				
+			}
+
 			case 1:
 			
 				num_particles = 20000;

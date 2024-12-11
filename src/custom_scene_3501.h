@@ -15,6 +15,7 @@
 #include <godot_cpp/variant/vector3.hpp>
 #include <godot_cpp/variant/color.hpp>
 #include <godot_cpp/variant/transform3d.hpp>
+#include <godot_cpp/variant/aabb.hpp>
 
 #include <godot_cpp/templates/vector.hpp> // GODOT EQUIVALENT TO std::vector !!!! 
 
