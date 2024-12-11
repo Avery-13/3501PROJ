@@ -14,9 +14,13 @@ Grass::~Grass() {
 	// Add cleanup here, if you have any. I don't, typically. 
 }
 
-
+// Adds the crane parts to the crane in the editor. 
+// the add_child and set_owner should happen in _enter_tree, or we will not see them in the editor
 void Grass::_enter_tree ( ){
 	//if(DEBUG) UtilityFunctions::print("Entering Tree - Grass.");
+
+	// TODO setup your parts with the correct hierarchical relationships here
+	
 
 		//Create the base of the grass blade
 	create_and_add_as_child<GrassBase>(gBase, "grassBase", true);

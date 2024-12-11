@@ -68,7 +68,7 @@ namespace godot {
 		TerrainMesh();
 		~TerrainMesh();
 
-		void setup_terrain(float total_height = 5.0f, float circle_radius = 2.0f, int grid_cell = 90, int octave = 30);
+		void setup_terrain(float total_height = 5.0f, float circle_radius = 2.0f, int grid_cell = 90, int octave = 30); //increased size of cone and changed argument name DB
 		void setup_arrays();
 		void clear_arrays();
 		Vector<Vector<float>> get_height_map();

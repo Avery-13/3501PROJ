@@ -41,7 +41,10 @@ void TerrainInstance::_ready() {
 // 
 // called every frame (as often as possible)
 void TerrainInstance::_process(double delta) {
+	// Set the light position in the shader constantly  DB
+
 	time_passed += delta;
+
 }
 
 

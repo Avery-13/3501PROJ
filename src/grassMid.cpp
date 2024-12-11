@@ -29,6 +29,7 @@ void GrassMid::_enter_tree ( ) {
     grassBase->surface_set_material(0, material);
 
     grassBase->set_size(Vector3(0.02, 0.12, 0.02));
+    //set_joint_position(Vector3(0,-0.06,0));
 
     set_mesh(grassBase);
     

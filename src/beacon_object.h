@@ -10,8 +10,10 @@
 
 #include <godot_cpp/variant/vector3.hpp>
 
+// included proper header for use in this derived class  DB
 #include "game_object.h"
 
+// This is a repurposed copy of the "example_derived_class" that will act as the checkpoints in this game  DB
 namespace godot {
 	class BeaconObject : public GameObject {
 		GDCLASS(BeaconObject, GameObject);

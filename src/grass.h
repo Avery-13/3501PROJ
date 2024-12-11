@@ -11,7 +11,12 @@
 #include <godot_cpp/variant/transform3d.hpp>
 
 #include "hierarchyPart.h"
-
+// #include "jackBox.h"
+// #include "jackSpring.h"
+// #include "jackBody.h"
+// #include "jackHead.h"
+// #include "jackEye.h"
+// #include "jackArm.h"
 
 #include "grassBase.h"
 #include "grassMid.h"
@@ -26,6 +31,21 @@ class Grass : public Node3D {
 	GDCLASS(Grass, Node3D);
 
 private:
+    // JackBox* jBox;
+	// JackSpring* jSpring0;
+	// JackSpring* jSpring1;
+	// JackSpring* jSpring2;
+	// JackSpring* jSpring3;
+	// JackSpring* jSpring4;
+	// JackSpring* jSpring5;
+	// JackBody* jBody;
+	// JackHead* jHead;
+	// JackEye* jEye0;
+	// JackEye* jEye1;
+	// JackArm* jArmUpRight;
+	// JackArm* jArmUpLeft;
+	// JackArm* jArmLowRight;
+	// JackArm* jArmLowLeft;
 
 	GrassBase* gBase;
 	GrassMid* gMid;

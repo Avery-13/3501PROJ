@@ -9,6 +9,7 @@ void GrassBase::_bind_methods() {
 GrassBase::GrassBase() {
 	// This is just to line them up for the starting scene -- change this for sure. 
 	local_position = Vector3(0.0,0.0,0.0);
+	//timeTest = Time::get_singleton()->get_ticks_msec;
 	currTime = Time::get_singleton()->get_ticks_msec();
 }
 

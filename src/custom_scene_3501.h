@@ -66,7 +66,8 @@ private:
 	MeshInstance3D* screen_quad_instance;
 	ShaderMaterial* screen_space_shader_material;
 
-
+	//MeshInstance3D* screen_OOB_instance;
+	//ShaderMaterial* OOB_space_shader_material;
 	// create and setup the boxes; for this one they don't need to have separate create and setup functions. 
 	// This shouldn't be called in the assignment that you hand in. You can choose to delete the code if you want to. 
 	void setup_reference_boxes();
