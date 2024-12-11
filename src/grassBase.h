@@ -14,7 +14,6 @@ class GrassBase : public HierarchyPart {
 	GDCLASS(GrassBase, HierarchyPart);
 
 private:
-	//Time* timeTest;
 	int currTime;
 	
 protected:

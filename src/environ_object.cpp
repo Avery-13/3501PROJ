@@ -6,7 +6,6 @@
 #include <godot_cpp/classes/engine.hpp>
 #include "environ_object.h"
 
-// This class remains mostly the same as example_derived, however is defined to fit the beacon/checkpoint object needed  DB
 
 using namespace godot;
 
@@ -14,7 +13,6 @@ void EnvironObject::_bind_methods() {}
 
 EnvironObject::EnvironObject() : CSGMesh3D() {
 	time_passed = 0.0;
-	//set_mesh(m);
 }
 
 void EnvironObject::_enter_tree() {
